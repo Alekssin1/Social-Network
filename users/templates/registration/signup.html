@@ -1,0 +1,39 @@
+<!--/templates/register.html-->
+{% load static %}
+<html>
+<head>
+    <link rel="stylesheet" href=" {% static 'social_network/css/login.css' %} ">
+</head>
+<body>
+{% block content %}
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Tabs Titles -->
+
+        <h2 class="inactive underlineHover"><a href="{% url 'login' %}">Sign In</a></h2>
+        <h2 class="active">Sign Up</h2>
+
+
+        <!-- Login Form -->
+        <form method="post">
+            {% csrf_token %}
+            &nbsp;
+            {{form}}
+<!--            <input type="text" id="id_username" class="fadeIn second" autofocus autocapitalize="none"-->
+<!--                   autocomplete="username" name="username" placeholder="username">-->
+<!--            <input type="password" id="id_password1" class="fadeIn third" autocomplete="new-password" name="password1"-->
+<!--                   placeholder="password">-->
+<!--            <input type="password" id="id_password2" class="fadeIn third" autocomplete="new-password" name="password2"-->
+<!--                   placeholder="password">-->
+            <input type="submit" class="fadeIn fourth" value="Register">
+        </form>
+
+
+    </div>
+</div>
+{% endblock %}
+<script src="{% static 'social_network/js/signup.js' %}"></script>
+</body>
+
+
+</html>

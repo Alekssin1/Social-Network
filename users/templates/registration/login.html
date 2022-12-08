@@ -1,0 +1,38 @@
+<!-- registration/login.html -->
+{% load static %}
+<html>
+<head>
+    <link rel="stylesheet" href=" {% static 'social_network/css/login.css' %} ">
+</head>
+<body>
+
+{% block content %}
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Tabs Titles -->
+
+        <h2 class="active"> Sign In </h2>
+        <h2 class="inactive underlineHover"><a href="{% url 'signup' %}">Sign Up</a></h2>
+
+
+        <!-- Login Form -->
+        <form method="post">
+            {% csrf_token %}
+            &nbsp;
+            {{form.as_p}}
+
+<!--            <input type="text" id="id_username" class="fadeIn second" autofocus autocapitalize="none"-->
+<!--                   autocomplete="username" name="username" placeholder="username">-->
+<!--            <input type="password" id="id_password" class="fadeIn third" autocomplete="current-password" name="password"-->
+<!--                   placeholder="password">-->
+            <input type="submit" class="fadeIn fourth" value="Submit">
+        </form>
+
+
+    </div>
+</div>
+{% endblock %}
+<script src="{% static 'social_network/js/login.js' %}"></script>
+
+</body>
+</html>
