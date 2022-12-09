@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
     path('', index, name='home'),
-    path('home/', include('users.urls')),
+    path('home/', include('users.urls'), name="main"),
     path('accounts/', include('django.contrib.auth.urls')),
     path('post/', posts, name='our_post'),
     path("post/ajax", like, name='like'),

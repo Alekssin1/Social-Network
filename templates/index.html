@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+    <link rel="stylesheet" href="{% static '/css/chat.css' %}" />
     <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,41 +22,79 @@
     <div class="chat_main">
         <div class="left_side_menu">
             <div class="left_side_menu-logo">
-                <img class="left_side-img" src="{% static 'img/Facebook.svg' %}" alt="main_left">
+              <img
+                class="left_side-img "
+                src="{% static 'img/Facebook.svg' %}"
+                alt="main_left"
+              />
             </div>
-
-            <div class="main_in_left_menu left_menu_block">
-                <div class="left_side-img"><img class="home_pic" src="{% static 'img/home.svg' %}" alt="main_left"></div>
-                <span class="main_left_text text_left">Головна</span>
+    
+            <div class="main_in_left_menu left_menu_block left_hover">
+              <div class="left_side-img">
+                <img
+                  class="home_pic"
+                  src="{% static 'img/home.svg' %}"
+                  alt="main_left"
+                />
+              </div>
+              <a href="{% url 'our_post' %}" style="text-decoration:none;"><span class="main_left_text text_left">Головна</span></a>
             </div>
-            <div class="search_in_left_menu left_menu_block">
-                <div class="left_side-img"><img class="search_pic" src="{% static 'img/Search.svg' %}" alt="search_left"></div>
-                <span class="search_left_text text_left">Пошук</span>
+            <div class="search_in_left_menu left_menu_block left_hover">
+              <div class="left_side-img">
+                <img
+                  class="search_pic"
+                  src="{% static 'img/Search.svg' %}"
+                  alt="search_left"
+                />
+              </div>
+              <span class="search_left_text text_left">Пошук</span>
             </div>
-            <div class="notifications_in_left_menu left_menu_block">
-                <div class="left_side-img"><img class="notification_pic" src="{% static 'img/Notifications.svg' %}"
-                        alt="notifications_left"></div>
-                <span class="notifications_left_text text_left">Сповіщення</span>
+            <div class="notifications_in_left_menu left_menu_block left_hover">
+              <div class="left_side-img">
+                <img
+                  class="notification_pic"
+                  src="{% static 'img/Notifications.svg' %}"
+                  alt="notifications_left"
+                />
+              </div>
+              <span class="notifications_left_text text_left">Сповіщення</span>
             </div>
-            <div class="message_in_left_menu left_menu_block">
-                <div class="left_side-img"><img class="message_pic" src="{% static 'img/Message.svg' %}" alt="message_left"></div>
-                <span class="message_left_text text_left active_text">Повідомлення</span>
+            <div class="message_in_left_menu left_menu_block left_hover">
+              <div class="left_side-img">
+                <img
+                  class="message_pic"
+                  src="{% static 'img/Message.svg' %}"
+                  alt="message_left"
+                />
+              </div>
+              <a href="{% url 'home' %}" style="text-decoration:none;"><span class="message_left_text text_left active_text"
+                >Повідомлення</span
+              ></a>
             </div>
-            <div class="create_in_left_menu left_menu_block">
-                <div class="left_side-img"><img class="create_pic" src="{% static 'img/Post.svg' %}" alt="create_left"></div>
-                <span class="create_left_text text_left">Створити</span>
+         
+            <div class="profile_in_left_menu left_menu_block left_hover">
+              <div class="left_side-img">
+                <img
+                  class="profile_pic"
+                  src="{% static 'img/profile.svg' %}"
+                  alt="profile_left"
+                />
+              </div>
+              <span class="profile_left_text text_left">Профіль</span>
             </div>
-            <div class="profile_in_left_menu left_menu_block">
-                <div class="left_side-img"><img class="profile_pic" src="{% static 'img/profile.svg' %}" alt="profile_left"></div>
-                <span class="profile_left_text text_left">Профіль</span>
-            </div>
-        </div>
+          </div>
 
 
 
         <div class="chat__users">
             <div class="nick_name">
-                <span class="nick_name-text">Nick</span>
+                <a style="text-decoration:none;" href="{% url 'home_home' %}">
+                    {% if user %}
+                    <span class="nick_name-text">{{user.username}}</span>
+                    {%else%}
+                    <span class="nick_name-text">Nick</span>
+                    {%endif%}
+                </a>
                 <img class="nick_vector" src="{% static 'img/Vector.svg' %}" alt="vector">
             </div>
 

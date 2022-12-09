@@ -1,6 +1,7 @@
 var id = JSON.parse(document.getElementById('json-posts').textContent);
 const comment_username = JSON.parse(document.getElementById('json-comment-username').textContent);
 
+
 const socket = new WebSocket(
     'ws://'
     + window.location.host

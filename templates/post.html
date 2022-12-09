@@ -41,11 +41,11 @@
                   <div class="left_side-img">
                     <img
                       class="home_pic"
-                      src="{% static 'img/home.svg' %}"
+                      src="{% static 'img/active_home.svg' %}"
                       alt="main_left"
                     />
                   </div>
-                  <span class="main_left_text text_left">Головна</span>
+                  <a href="{% url 'our_post' %}" style="text-decoration:none;"><span class="main_left_text text_left active_text">Головна</span></a>
                 </div>
                 <div class="search_in_left_menu left_menu_block left_hover">
                   <div class="left_side-img">
@@ -71,13 +71,13 @@
                   <div class="left_side-img">
                     <img
                       class="message_pic"
-                      src="{% static 'img/Message.svg' %}"
+                      src="{% static 'img/Non_active_message.svg' %}"
                       alt="message_left"
                     />
                   </div>
-                  <span class="message_left_text text_left active_text"
+                  <a href="{% url 'home' %}" style="text-decoration:none;"><span class="message_left_text text_left"
                     >Повідомлення</span
-                  >
+                  ></a>
                 </div>
             
                 <div class="profile_in_left_menu left_menu_block left_hover">
@@ -103,23 +103,7 @@
                   </div>
                 </div>
                 
-                <form method="post" enctype="multipart/form-data" action="{% url 'our_post' %}" class="post_add">
-                  {% csrf_token %} 
-        
-                  {% comment %} {{ form.as_p }} {% endcomment %}
-                  {% comment %} <p><label for="{{ form.message.id_for_label }}" class="m-8"></label>{{ form.message }}</p>
-                  <p><label for="{{ form.content.id_for_label }}" class="m-8"><img src="{% static 'img/lenta/picture.svg' %}"/></label>{{ form.content }}</p>
-          
-                  <div class="d-f m-8">
-                    <div class="row">
-                    <div class="post_content" id="contentBox">
-        
-                    </div>
-                  </div>
-                  <button class="button_post">Надіслати</button>
-                  </div> {% endcomment %}
-                  
-                {% comment %} </form>
+               
                 <div class="error_message" id="error">
         
                 </div> {% endcomment %}
@@ -143,31 +127,16 @@
                     </div>
                     {% endfor%}
                     <div class="about_post" > 
-                      <div class="post_like">
-        
-                      {% if posts.id in like_posts %}
-                      <img src="{% static 'img/lenta/likeClick.png'%}" style="cursor:pointer;" class="likebutton {{posts.id}} likebutton_none{{posts.id}} d-b" id="likebutton_none" />
-                      <img src="{% static 'img/lenta/like.svg'%}" style="cursor:pointer;" class="likebutton_none {{posts.id}} likebutton{{posts.id}} d-n" id="likebutton" />
-                      {% else %}
-                      <img src="{% static 'img/lenta/like.svg'%}" style="cursor:pointer;" class="likebutton {{posts.id}} likebutton{{posts.id}} d-b" id="likebutton" />
-                      <img src="{% static 'img/lenta/likeClick.png'%}" style="cursor:pointer;" class="likebutton_none {{posts.id}} likebutton_none{{posts.id}} d-n" id="likebutton_none" />
-                      {% endif %}
-                 
-                       {% for key, value in number_like.items %}
-                      {% if key == posts.id %}
-                      
-                        <span class="like_number like_number{{key}}">{{ value }}</span>
-                      
-                      {% endif %}
-                      {% endfor %} 
-                      {% if posts.id not in all_id_post%}
-                      <span class="like_number like_number{{posts.id}}">0</span>
-                      {% endif %}
-              
-                      </div>
                       <div class="post_comment">
                         <img src="{% static 'img/lenta/comment.svg'%}" class="post_comment-img" />
-                        <span>123 345</span>
+                        {% for key, value in id_comment.items %}
+                        {% if key == posts.id %}
+          
+                        <span>{{ value }}</span>
+          
+                        {% endif %}
+                        {% endfor %}
+                        
                       </div>
                       <div class="post_time"> 
                         <span>{{ posts.createdAt|date:"M d" }}</span>
@@ -189,14 +158,15 @@
                         </div>
                     </div>
                    
-                    <form id="comment_form">
+                    <!-- <form id="comment_form" action=""> -->
                         <textarea class="post_input form-control" placeholder="Текст коментаря..." id="comment_input" type="text", rows="2"></textarea>
                         
                         <button id="post-comment-submit" class="button_comment" onclick="scrollToEndPage()">Відповісти</button>
-                    </form> 
+                    <!-- </form>  -->
                   
                   </div>
                   <div id="comment_for_post">
+                    {% for comment in comments %}
                     <div class="user_post">
                       <img
                         class="avatar online"
@@ -204,10 +174,11 @@
                         alt="avatar"
                       />
                         <div class="about_user">
-                          <span class="nickname_post">Nick</span>
-                          <span class="comment_text post_subtitle">ФВаофівпщфіпщівпоіфщпрщоіфавщароівафаіофіожпаодфіодатоафодлфщр</span>
+                          <span class="nickname_post">{{comment.userId}}</span>
+                          <span class="comment_text post_subtitle">{{comment.commentText}}</span>
                         </div>               
                     </div>
+                    {% endfor %}
                   </div>
                   
                 

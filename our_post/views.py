@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from .forms import Post_form
-from chats.models import Photo, UserPost, PostLikes
+from chats.models import Photo, UserPost, PostLikes, PostComment
 from django.http import HttpResponseRedirect, JsonResponse
 
 User = get_user_model()
@@ -45,8 +45,20 @@ def posts(request):
         except Exception:
             pass
 
+        comment = PostComment.objects.order_by("id")
+        all_comment = {}
+        my_comment = {}
+        for like in comment:
+            if all_comment.get(like.postId_id, False):
+                all_comment[like.postId_id].append(like.userId_id)
+            else:
+                all_comment[like.postId_id] = [like.userId_id]
+
+        for key, value in all_comment.items():
+            my_comment[key] = len(value)
+
         post_form = Post_form()
-        return render(request, 'main.html', context={'form': post_form, 'posts': UserPost.objects.order_by("-id"), 'like_posts': id_post_like, 'number_like': my_like, 'all_id_post': list(my_like.keys())})
+        return render(request, 'main.html', context={'form': post_form, 'posts': UserPost.objects.order_by("-id"), 'like_posts': id_post_like, 'number_like': my_like, 'all_id_post': list(my_like.keys()), 'id_comment':my_comment})
 
 
 def like(request):
@@ -76,5 +88,17 @@ def like(request):
 
 
 def comments(request, post_id):
+    comment = PostComment.objects.order_by("id")
+    all_comment = {}
+    my_comment = {}
+
+    for like in comment:
+        if all_comment.get(like.postId_id, False):
+            all_comment[like.postId_id].append(like.userId_id)
+        else:
+            all_comment[like.postId_id] = [like.userId_id]
+
+    for key, value in all_comment.items():
+        my_comment[key] = len(value)
     
-    return render(request, 'post.html', context={'posts': UserPost.objects.get(id=int(post_id))})
+    return render(request, 'post.html', context={'posts': UserPost.objects.get(id=int(post_id)), 'comments':PostComment.objects.order_by("id"), 'id_comment':my_comment})

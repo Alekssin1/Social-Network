@@ -29,12 +29,13 @@ class CommentConsumer(AsyncWebsocketConsumer):
             id = await self.get_post(int(self.room_group_name))
             print("-"*30, usernames)
             await self.save_comment(usernames, id, comment, myTime)
+            user = self.get_username(usernames)
             await self.channel_layer.group_send(
                 self.room_group_name,
                 {
                     'type': 'comment_message',
                     'comment': comment,
-                    'username': username,
+                    'username': user,
                     'timestamp': myTime,
                 }
             )
@@ -66,3 +67,7 @@ class CommentConsumer(AsyncWebsocketConsumer):
     @database_sync_to_async
     def get_post(self, id):
         return UserPost.objects.get(id=id)
+
+    # @database_sync_to_async
+    def get_username(self, obj):
+        return getattr(obj, 'username')
