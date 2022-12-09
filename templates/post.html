@@ -88,7 +88,7 @@
                       alt="profile_left"
                     />
                   </div>
-                  <span class="profile_left_text text_left">Профіль</span>
+                  <a href="{% url 'home_home' %}" style="text-decoration:none;"><span class="profile_left_text text_left">Профіль</span></a>
                 </div>
             </div>
              <div class="post">
@@ -167,6 +167,7 @@
                   </div>
                   <div id="comment_for_post">
                     {% for comment in comments %}
+
                     <div class="user_post">
                       <img
                         class="avatar online"
@@ -178,6 +179,7 @@
                           <span class="comment_text post_subtitle">{{comment.commentText}}</span>
                         </div>               
                     </div>
+              
                     {% endfor %}
                   </div>
                   

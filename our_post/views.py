@@ -3,13 +3,12 @@ from django.contrib.auth import get_user_model
 from .forms import Post_form
 from chats.models import Photo, UserPost, PostLikes, PostComment
 from django.http import HttpResponseRedirect, JsonResponse
-
+from django.contrib.auth.decorators import login_required
 User = get_user_model()
 
 
 # Create your views here.
 def posts(request):
-    all_user = User.objects.all()
     if request.method == "POST":
         post_form = Post_form(request.POST, request.FILES)
 
@@ -28,22 +27,23 @@ def posts(request):
         all_like = {}
         my_like = {}
         try:
-            all_like_post = PostLikes.objects.all()
+            
             like_this_user = PostLikes.objects.filter(userId_id=request.user)
             for i in like_this_user:
                 id_post_like.append(i.postId_id)
 
-            for like in all_like_post:
-                if all_like.get(like.postId_id, False):
-                    all_like[like.postId_id].append(like.userId_id)
-                else:
-                    all_like[like.postId_id] = [like.userId_id]
-
-            for key, value in all_like.items():
-                my_like[key] = len(value)
-
         except Exception:
             pass
+
+        all_like_post = PostLikes.objects.all()
+        for like in all_like_post:
+            if all_like.get(like.postId_id, False):
+                all_like[like.postId_id].append(like.userId_id)
+            else:
+                all_like[like.postId_id] = [like.userId_id]
+
+        for key, value in all_like.items():
+            my_like[key] = len(value)
 
         comment = PostComment.objects.order_by("id")
         all_comment = {}
@@ -58,7 +58,7 @@ def posts(request):
             my_comment[key] = len(value)
 
         post_form = Post_form()
-        return render(request, 'main.html', context={'form': post_form, 'posts': UserPost.objects.order_by("-id"), 'like_posts': id_post_like, 'number_like': my_like, 'all_id_post': list(my_like.keys()), 'id_comment':my_comment})
+        return render(request, 'main.html', context={'form': post_form, 'posts': UserPost.objects.order_by("-id"), 'like_posts': id_post_like, 'number_like': my_like, 'all_id_post': list(my_like.keys()), 'id_comment': my_comment})
 
 
 def like(request):
@@ -87,6 +87,7 @@ def like(request):
     return JsonResponse(data)
 
 
+@login_required(login_url="/accounts/login/")
 def comments(request, post_id):
     comment = PostComment.objects.order_by("id")
     all_comment = {}
@@ -100,5 +101,5 @@ def comments(request, post_id):
 
     for key, value in all_comment.items():
         my_comment[key] = len(value)
-    
-    return render(request, 'post.html', context={'posts': UserPost.objects.get(id=int(post_id)), 'comments':PostComment.objects.order_by("id"), 'id_comment':my_comment})
+
+    return render(request, 'post.html', context={'posts': UserPost.objects.get(id=int(post_id)), 'comments':PostComment.objects.filter(postId=int(post_id)) , 'id_comment': my_comment})

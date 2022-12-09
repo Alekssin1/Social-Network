@@ -80,7 +80,7 @@
                   alt="profile_left"
                 />
               </div>
-              <span class="profile_left_text text_left">Профіль</span>
+              <a href="{% url 'home_home' %}" style="text-decoration:none;"><span class="profile_left_text text_left">Профіль</span></a>
             </div>
           </div>
 
@@ -89,8 +89,8 @@
         <div class="chat__users">
             <div class="nick_name">
                 <a style="text-decoration:none;" href="{% url 'home_home' %}">
-                    {% if user %}
-                    <span class="nick_name-text">{{user.username}}</span>
+                    {% if request.user.username %}
+                    <span class="nick_name-text">{{request.user.username}}</span>
                     {%else%}
                     <span class="nick_name-text">Nick</span>
                     {%endif%}
