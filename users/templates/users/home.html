@@ -1,18 +1,12 @@
 {% load static %}
 <html>
 <head>
-    <link
-    rel="shortcut icon"
-    type="image/png"
-    href="{% static 'img/favicon.ico' %}"
-    />
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}" />
     <style>
      body {
       color: pink;
       text-align: center;
       }
-
-
     </style>
 
 </head>
@@ -24,6 +18,7 @@
 <div>
     {% if user.is_authenticated %}
     <a href="{% url 'logout' %}">Logout</a>
+    <a href="{% url 'home' %}">Chat</a>
 
     {% else %}
     <a href="{% url 'signup' %}">Sign Up</a>

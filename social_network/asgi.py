@@ -25,7 +25,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'social_network.settings')
 
 application = get_asgi_application()
 
-
+# записуємо url для різних websocket
 application = ProtocolTypeRouter({
     'websocket': AuthMiddlewareStack(
         URLRouter([

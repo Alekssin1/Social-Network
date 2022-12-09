@@ -1,6 +1,9 @@
+// отримую айді користувача якому пишуть
 const id = JSON.parse(document.getElementById('json-username').textContent);
+// отримую юзернейм користувача якиий пише повідомлення
 const message_username = JSON.parse(document.getElementById('json-message-username').textContent);
 
+// створюю новий об'єкт вебсокету
 const socket = new WebSocket(
     'ws://'
     + window.location.host
@@ -9,28 +12,39 @@ const socket = new WebSocket(
     + '/'
 );
 
+// відкрите
 socket.onopen = function (e) {
     console.log("CONNECTION ESTABLISHED");
 }
 
+// закрите
 socket.onclose = function (e) {
     console.log("CONNECTION LOST");
 }
 
+// помилки
 socket.onerror = function (e) {
     console.log("ERROR OCCURED");
 }
 
+// відправка
 socket.onmessage = function (e) {
+    // отримуємо дату
     var currentdate = new Date();
+    // створюємо шаблон за яким дата буде виводитися в потрібному нам вигляді
     var datetime =
         + ((currentdate.getHours()) < 10 ? "0" + currentdate.getHours() : currentdate.getHours()) + ":"
         + ((currentdate.getMinutes()) < 10 ? "0" + currentdate.getMinutes() : currentdate.getMinutes());
+    // отримуємо данні з chats.consumers.py
     const data = JSON.parse(e.data);
-    console.log(data);
-    if (data.base64 === "1") {
 
+    // перевірка на тип повідомлення (текст або голосове)
+    // 1 - голосове
+    // 0 - текст
+    if (data.base64 === "1") {
+        // перевірка на користувача який відправляє повідомлення
         if (data.username == message_username) {
+            // виводить повідомлення справа, оскільки користувач відправив його
             document.querySelector('#chat').innerHTML += `<div class="right for_audio">
             <audio controls="controls" autobuffer="autobuffer" class="my_audio">
               <source src="data:audio/wav;base64, ${data.message}" />
@@ -39,6 +53,7 @@ socket.onmessage = function (e) {
           </div>`
 
         } else {
+            // виводить повідомлення зліва, оскільки користувач отримав повідомлення
             document.querySelector('#chat').innerHTML += `<div class="left ">
             <audio controls="controls" autobuffer="autobuffer" class="my_audio">
               <source src="data:audio/wav;base64, ${data.message}" />
@@ -48,13 +63,17 @@ socket.onmessage = function (e) {
         }
     }
     else {
+        // перевірка на пустий рядок
         if (data.message != "") {
+            // перевірка на користувача який відправляє повідомлення
             if (data.username == message_username) {
+                // виводить повідомлення справа, оскільки користувач відправив його
                 document.querySelector('#chat').innerHTML += `<div class="chat_message right">
             <span class="chat_message-text">${data.message}</span>
             <span class="time_message">${datetime}</span>
         </div>`
             } else {
+                // виводить повідомлення зліва, оскільки користувач отримав повідомлення
                 document.querySelector('#chat').innerHTML += `<div class="chat_message">
             <img class="title_chat_avatar" src="{% static 'assets/dp.png' %}" alt="avatar">
             <span class="chat_message-text">${data.message}</span>
@@ -63,10 +82,12 @@ socket.onmessage = function (e) {
             }
         }
     }
-
 }
 
+// спрацьовує при натисненні на кнопку відправити повідомлення (текстове)
+// відправляє повідомленяя в json для обробки в chats.consumers.py за допомогою сокетів
 document.querySelector('#chat-message-submit').onclick = function (e) {
+    // отримання даних з поля вводу
     const message_input = document.querySelector('#message_input');
     const message = message_input.value;
 
@@ -76,9 +97,11 @@ document.querySelector('#chat-message-submit').onclick = function (e) {
         'base64': "0"
     }));
 
+    // заміняємо значення введеного тексту на пустий рядок
     message_input.value = '';
 }
 
+// запис голосового повідомлення
 jQuery(document).ready(function () {
     var $ = jQuery;
     var myRecorder = {
@@ -87,6 +110,7 @@ jQuery(document).ready(function () {
             stream: null,
             recorder: null
         },
+        // функція ініціалізації
         init: function () {
             if (null === myRecorder.objects.context) {
                 myRecorder.objects.context = new (
@@ -94,7 +118,9 @@ jQuery(document).ready(function () {
                 );
             }
         },
+        // почати запис
         start: function () {
+            // вибираємо тільки аудіо
             var options = { audio: true, video: false };
             navigator.mediaDevices.getUserMedia(options).then(function (stream) {
                 myRecorder.objects.stream = stream;
@@ -105,32 +131,27 @@ jQuery(document).ready(function () {
                 myRecorder.objects.recorder.record();
             }).catch(function (err) { });
         },
+        // зупинка запису
         stop: function (listObject) {
             if (null !== myRecorder.objects.stream) {
+                // зупиняємо запис
                 myRecorder.objects.stream.getAudioTracks()[0].stop();
             }
             if (null !== myRecorder.objects.recorder) {
+                // зупиняємо запис
                 myRecorder.objects.recorder.stop();
 
-
-                // Validate object
+                // Перевірте об'єкт
                 if (null !== listObject
                     && 'object' === typeof listObject
                     && listObject.length > 0) {
 
-
-                    // Export the WAV file
+                    // передаємо blob файл з голосовим в json для подальшої обробки в c
                     myRecorder.objects.recorder.exportWAV(function (blob) {
-                        // var url = (window.URL || window.webkitURL)
-                        //     .createObjectURL(blob);
-
-
-                        // var audioObject = $('<audio class="audio" controls></audio>')
-                        //     .attr('src', url);
-
 
                         var reader = new window.FileReader();
                         reader.readAsDataURL(blob);
+                        // перетворюємо blob файл в base64 
                         reader.onloadend = function () {
                             base64 = reader.result;
                             base64 = base64.split(',')[1];
@@ -143,31 +164,24 @@ jQuery(document).ready(function () {
                             }));
 
                         }
-
-                        // // Wrap everything in a row
-                        // var holderObject = $('<div class="row"></div>')
-                        //     .append(audioObject);
-
-                        // // Append to the list
-                        // listObject.append(holderObject);
                     });
                 }
             }
         }
     };
 
-    // Prepare the recordings list
+    // Підготуйте список записів
     var listObject = $('[data-role="recordings"]');
 
-    // Prepare the record button
+    // Підготуйте кнопку запису
     $('[data-role="controls"] > button').click(function () {
-        // Initialize the recorder
+        // Ініціалізуйте рекордер
         myRecorder.init();
 
-        // Get the button state 
+        // Отримати стан кнопки
         var buttonState = !!$(this).attr('data-recording');
 
-        // Toggle
+        // Перемикач
         if (!buttonState) {
             $(this).attr('data-recording', 'true');
             myRecorder.start();

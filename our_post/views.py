@@ -9,7 +9,9 @@ User = get_user_model()
 
 # Create your views here.
 def posts(request):
+    # якщо спрацьовує метод POST значить відбулося відправлення форми з додавання посту
     if request.method == "POST":
+        # зберігаю значення з форми в словник
         post_form = Post_form(request.POST, request.FILES)
 
         if post_form.is_valid():
@@ -18,6 +20,7 @@ def posts(request):
             post_form.cleaned_data
             temp.save()
 
+            # збереження фотографій в базі даних
             for i in request.FILES.getlist("content"):
                 temp.content.add(Photo.objects.create(photo=i))
             temp.save()
@@ -27,14 +30,17 @@ def posts(request):
         all_like = {}
         my_like = {}
         try:
-            
+            # зберігаєм лайки цього користувача
             like_this_user = PostLikes.objects.filter(userId_id=request.user)
+            # записую в список айді всіх постів, до яких я поставив лайк
             for i in like_this_user:
                 id_post_like.append(i.postId_id)
-
+        # заходить в помилку, якщо в базі не знайшло лайків в даного користувача
         except Exception:
             pass
 
+        # створює словник, ключем в якому є айді посту, а значеннями список
+        # з користувачів які натиснули лайк
         all_like_post = PostLikes.objects.all()
         for like in all_like_post:
             if all_like.get(like.postId_id, False):
@@ -42,18 +48,23 @@ def posts(request):
             else:
                 all_like[like.postId_id] = [like.userId_id]
 
+        # створює словник, в якому за ключем(айді посту), зберігається кількість лайків
         for key, value in all_like.items():
             my_like[key] = len(value)
 
         comment = PostComment.objects.order_by("id")
         all_comment = {}
         my_comment = {}
+        
+        # створює словник, ключем в якому є айді посту, а значеннями список
+        # з користувачів які відправили комент
         for like in comment:
             if all_comment.get(like.postId_id, False):
                 all_comment[like.postId_id].append(like.userId_id)
             else:
                 all_comment[like.postId_id] = [like.userId_id]
 
+        # створює словник, в якому за ключем(айді посту), зберігається кількість коментів
         for key, value in all_comment.items():
             my_comment[key] = len(value)
 
@@ -62,16 +73,19 @@ def posts(request):
 
 
 def like(request):
+    # отримання данних про натискання на лайк
     post_id = request.GET.get('result', False)
     data = {"like": False}
     temp = True
 
     try:
+        # дістає об'єкт лайку до цього посту
         my_like = PostLikes.objects.get(
             postId_id=int(post_id), userId_id=request.user)
     except Exception:
         temp = False
 
+    # якщо об'єкт не існує і лайк поставлений, то заносить данні в базу
     if post_id and not temp:
         my_user = UserPost.objects.get(id=int(post_id))
         post_like = PostLikes()
@@ -81,6 +95,7 @@ def like(request):
         data = {"like": True}
         return JsonResponse(data)
 
+    # якщо запис є і натисуто повторно, видаляє цей лайк за бази
     if temp:
         my_like.delete()
 
@@ -93,12 +108,15 @@ def comments(request, post_id):
     all_comment = {}
     my_comment = {}
 
+    # створює словник, ключем в якому є айді посту, а значеннями список
+    # з користувачів які відправили комент
     for like in comment:
         if all_comment.get(like.postId_id, False):
             all_comment[like.postId_id].append(like.userId_id)
         else:
             all_comment[like.postId_id] = [like.userId_id]
 
+    # створює словник, в якому за ключем(айді посту), зберігається кількість коментів
     for key, value in all_comment.items():
         my_comment[key] = len(value)
 

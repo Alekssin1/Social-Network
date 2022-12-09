@@ -6,7 +6,7 @@ from datetime import datetime
 
 # Create your models here.
 
-
+# модель, що відповідає за чат
 class ChatModel(models.Model):
     sender = models.CharField(max_length=100, default=None)
     message = models.TextField(null=True, blank=True)
@@ -16,8 +16,8 @@ class ChatModel(models.Model):
 
     def __str__(self) -> str:
         return self.message
-
-
+    
+# модель, що відповідає за чат
 class UserChatModel(models.Model):
     sourceId = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="sourceId")
     targetId = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="targetId")
@@ -28,6 +28,7 @@ class UserChatModel(models.Model):
     class Meta:
         db_table = "user_message"
         
+# модель що відповідає за підписки
 class Relationships(models.Model):
     followerUserId = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="followerUserId")
     followedUserId = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="followedUserId")
@@ -35,6 +36,7 @@ class Relationships(models.Model):
     class Meta:
         db_table = "relationships"
 
+# модель, що відповідає за пости
 class UserPost(models.Model):
     userId = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     message = models.TextField(null=True)
@@ -43,10 +45,12 @@ class UserPost(models.Model):
 
     class Meta: 
         db_table = "user_post"
-        
+    
+# модель, що відповідає за фото до постів    
 class Photo(models.Model):
     photo = models.FileField(upload_to='uploads/')
 
+# модель, що відповідає за лайки до постів
 class PostLikes(models.Model):
     userId = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) 
     postId =  models.ForeignKey(UserPost, on_delete=models.CASCADE) 
@@ -54,6 +58,7 @@ class PostLikes(models.Model):
     class Meta:
         db_table = "post_likes"
 
+# модель, що відповідає за коментарі до постів
 class PostComment(models.Model):
     userId = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) 
     postId = models.ForeignKey(UserPost, on_delete=models.CASCADE) 

@@ -59,6 +59,7 @@
     </div>
 
     <div class="post">
+      {% if request.user.username %}
       <div class="user_add_post">
         <img class="avatar online" src="{% static 'assets/dp.png' %}" alt="avatar" />
         <div class="about_user">
@@ -69,7 +70,7 @@
       <form method="post" enctype="multipart/form-data" action="{% url 'our_post' %}" class="post_add">
         {% csrf_token %}
 
-        {% comment %} {{ form.as_p }} {% endcomment %}
+       
         <p><label for="{{ form.message.id_for_label }}" class="m-8"></label>{{ form.message }}</p>
         <p><label for="{{ form.content.id_for_label }}" class="m-8"><img
               src="{% static 'img/lenta/picture.svg' %}" /></label>{{ form.content }}</p>
@@ -84,6 +85,7 @@
         </div>
 
       </form>
+      {%endif%}
       <div class="error_message" id="error">
 
       </div>

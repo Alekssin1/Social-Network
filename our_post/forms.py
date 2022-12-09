@@ -3,6 +3,7 @@ from django import forms
 from chats.models import UserPost
 from .models import *
 
+# модель пост
 class Post_form(forms.ModelForm):
     message = forms.CharField(widget=forms.Textarea(attrs={"class":"post_input form-control", "placeholder":"Текст посту...", "id":"post_input", 
         "type":"text", "rows":"2"}), label="")

@@ -6,9 +6,11 @@ from datetime import datetime
 
 
 class PersonalChatConsumer(AsyncWebsocketConsumer):
+    # функція що проводить конект до веб сокетів
     async def connect(self):
         my_id = self.scope['user'].id
         other_user_id = self.scope['url_route']['kwargs']['id']
+        # називаємо групу від більшого айді користувача до меншого
         if int(my_id) > int(other_user_id):
             self.room_name = f'{my_id}-{other_user_id}'
         else:
@@ -16,6 +18,7 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
 
         self.room_group_name = 'chat_%s' % self.room_name
 
+        # створюємо групу
         await self.channel_layer.group_add(
             self.room_group_name,
             self.channel_name
@@ -24,18 +27,21 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
         await self.accept()
 
     async def receive(self, text_data=None, bytes_data=None):
+        # дістаємо json з js
         data = json.loads(text_data)
         message = data['message']
         
+        # перевіряємо повідомлення на пустоту
         if message.strip() != "": 
             username = data['username']
             myTime = datetime.now()
         
+            # перевіряємо чи є в повідомленні голосове
             if data['base64'] == "1":
                 await self.save_message(username, self.room_group_name, message, myTime, True)
             else:
                 await self.save_message(username, self.room_group_name, message, myTime)
-
+            # відправка даних в chat_message 
             await self.channel_layer.group_send(
                 self.room_group_name,
                 {
@@ -53,6 +59,7 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
         username = event['username']
         base64 = event['base64']
 
+        # відправка даних в json, для подальшої роботи в js
         await self.send(text_data=json.dumps({
             'message': message,
             'username': username,
@@ -65,6 +72,7 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
             self.channel_name
         )
 
+    # збереження повідомлення в базі даних
     @database_sync_to_async
     def save_message(self, username, thread_name, message, myTime, base=False):
         ChatModel.objects.create(

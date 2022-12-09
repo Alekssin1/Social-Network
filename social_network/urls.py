@@ -21,13 +21,27 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    # адмін панель
     path('admin/', admin.site.urls),
-    # path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
+    
+    # сторінка початкового чату
     path('', index, name='home'),
+    
+    # сторінка з можливістю зараєструватися, вийти з акаунту або стоворити його
     path('home/', include('users.urls'), name="main"),
+    
+    # сторінка, створена за допомогою шаблонів django для авторизації
     path('accounts/', include('django.contrib.auth.urls')),
+    
+    # сторінка з всіма постами
     path('post/', posts, name='our_post'),
+    
+    # сторінка для обробки ajax запитів, які додають лайк
     path("post/ajax", like, name='like'),
+    
+    # сторінка для коментаря 
     path('post/comments/<post_id>', comments, name='comments'),
+    
+    # сторінка чату з користувачем
     path('<username>/', chatPage, name='chat'),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # значення для завантаження медіа файлів(картинок до посту)
