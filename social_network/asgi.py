@@ -19,6 +19,8 @@ from channels.auth import AuthMiddlewareStack
 
 from chats.consumers import PersonalChatConsumer
 
+from our_post.consumers import CommentConsumer
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'social_network.settings')
 
 application = get_asgi_application()
@@ -27,7 +29,8 @@ application = get_asgi_application()
 application = ProtocolTypeRouter({
     'websocket': AuthMiddlewareStack(
         URLRouter([
-            path('ws/<int:id>/', PersonalChatConsumer.as_asgi())
+            path('ws/<int:id>/', PersonalChatConsumer.as_asgi()),
+            path('ws/comment/<int:id>/', CommentConsumer.as_asgi()),
         ])
     )
 })

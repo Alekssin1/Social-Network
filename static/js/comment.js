@@ -1,10 +1,11 @@
 var id = JSON.parse(document.getElementById('json-posts').textContent);
-
+const comment_username = JSON.parse(document.getElementById('json-comment-username').textContent);
 
 const socket = new WebSocket(
     'ws://'
     + window.location.host
     + '/ws/'
+    + 'comment/'
     + id
     + '/'
 );
@@ -29,32 +30,30 @@ socket.onmessage = function (e) {
         + ((currentdate.getMinutes()) < 10 ? "0" + currentdate.getMinutes() : currentdate.getMinutes());
     const data = JSON.parse(e.data);
     console.log(data);
-        if (data.message != "") {
-            if (data.username == message_username) {
-                document.querySelector('#chat').innerHTML += `<div class="chat_message right">
-            <span class="chat_message-text">${data.message}</span>
-            <span class="time_message">${datetime}</span>
-        </div>`
-            } else {
-                document.querySelector('#chat').innerHTML += `<div class="chat_message">
-            <img class="title_chat_avatar" src="{% static 'assets/dp.png' %}" alt="avatar">
-            <span class="chat_message-text">${data.message}</span>
-            <span class="time_message">${datetime}</span>
-        </div>`
-            }
-        }
+    if (data.message != "") {
+        document.querySelector('#comment_for_post').innerHTML += `<div class="user_post">
+            <img
+              class="avatar online"
+              src="{% static 'assets/dp.png' %}"
+              alt="avatar"
+            />
+              <div class="about_user">
+                <span class="nickname_post">${data.username}</span>
+                <span class="comment_text post_subtitle">${data.comment}</span>
+              </div>               
+          </div>`
+    }
 
 }
 
-// document.querySelector('#chat-message-submit').onclick = function (e) {
-//     const message_input = document.querySelector('#message_input');
-//     const message = message_input.value;
+document.querySelector('#post-comment-submit').onclick = function (e) {
+    const comment_input = document.querySelector('#comment_input');
+    const comment = comment_input.value;
 
-//     socket.send(JSON.stringify({
-//         'message': message,
-//         'username': message_username,
-//         'base64': "0"
-//     }));
+    socket.send(JSON.stringify({
+        'comment': comment,
+        'username': comment_username,
+    }));
 
-//     message_input.value = '';
-// }
+    comment_input.value = '';
+}

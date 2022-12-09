@@ -76,5 +76,5 @@ def like(request):
 
 
 def comments(request, post_id):
-
-    return render(request, 'post.html', context={'posts': UserPost.objects.get(id=int(post_id)), })
+    
+    return render(request, 'post.html', context={'posts': UserPost.objects.get(id=int(post_id))})
