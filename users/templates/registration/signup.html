@@ -1,15 +1,6 @@
+{% extends "baseAuthorization.html" %}
 {% load static %}
-<html>
-<head>
-    <link rel="stylesheet" href=" {% static 'social_network/css/login.css' %} ">
-    <link
-    rel="shortcut icon"
-    type="image/png"
-    href="{% static 'img/favicon.ico' %}"
-    />
-</head>
-<body>
-{% block content %}
+{% block title %}
 <div class="wrapper fadeInDown">
     <div id="formContent">
 
@@ -27,8 +18,6 @@
     </div>
 </div>
 {% endblock %}
+{% block scripts %}
 <script src="{% static 'social_network/js/signup.js' %}"></script>
-</body>
-
-
-</html>
+{% endblock %}

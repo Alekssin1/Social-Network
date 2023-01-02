@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Post
+{% endblock %}
+
+{% block active_main %}
+active_text
+{% endblock %}
+
+{% block content%}
+<div class="post">
+  <div class="user_post">
+    <img
+      class="avatar online"
+      src="{% static 'assets/dp.png' %}"
+      alt="avatar"
+    />
+   
+    <div class="about_user">
+      <span class="nickname_post post_nick">{{posts.userId}}</span>
+      <span class="post_subtitle post_text">
+        {{posts.message}}
+      </span>
+      {% for img in posts.content.all %}
+  
+      <div class="div_image_post">
+        <img src="{{img.photo.url}}" class="image_post" />
+      </div>
+      {% endfor%}
+      <div class="about_post" > 
+        <div class="post_comment">
+          <img src="{% static 'img/lenta/comment.svg'%}" class="post_comment-img" />
+          {% for key, value in id_comment.items %}
+          {% if key == posts.id %}
+
+          <span>{{ value }}</span>
+
+          {% endif %}
+          {% endfor %}
+          
+        </div>
+        <div class="post_time"> 
+          <span>{{ posts.createdAt|date:"M d" }}</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  
+  <div class="comment_to_post">
+      <div class="user_add_post">
+          <img
+            class="avatar online"
+            src="{% static 'assets/dp.png' %}"
+            alt="avatar"
+          />
+          <div class="about_user">
+              <span class="nickname_post">{{user.username}}</span>
+          </div>
+      </div>                           
+          <textarea class="post_input form-control" placeholder="Текст коментаря..." id="comment_input" type="text", rows="2"></textarea>                       
+          <button id="post-comment-submit" class="button_comment" onclick="scrollToEndPage()">Відповісти</button>                                   
+    </div>
+    <div id="comment_for_post">
+      {% for comment in comments %}
+
+      <div class="user_post">
+        <img
+          class="avatar online"
+          src="{% static 'assets/dp.png' %}"
+          alt="avatar"
+        />
+          <div class="about_user">
+            <span class="nickname_post">{{comment.userId}}</span>
+            <span class="comment_text post_subtitle">{{comment.commentText}}</span>
+          </div>               
+      </div>
+
+      {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{posts.id|json_script:"json-posts"}}
+{{request.user.id|json_script:"json-comment-username"}}
+<script src="{% static 'js/textarea.js' %}"></script>
+<script src="{% static 'js/comment.js' %}"></script>
+{% endblock %}

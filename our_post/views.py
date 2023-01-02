@@ -69,7 +69,7 @@ def posts(request):
             my_comment[key] = len(value)
 
         post_form = Post_form()
-        return render(request, 'main.html', context={'form': post_form, 'posts': UserPost.objects.order_by("-id"), 'like_posts': id_post_like, 'number_like': my_like, 'all_id_post': list(my_like.keys()), 'id_comment': my_comment})
+        return render(request, 'our_post\main.html', context={'form': post_form, 'posts': UserPost.objects.order_by("-id"), 'like_posts': id_post_like, 'number_like': my_like, 'all_id_post': list(my_like.keys()), 'id_comment': my_comment})
 
 
 def like(request):
@@ -120,4 +120,4 @@ def comments(request, post_id):
     for key, value in all_comment.items():
         my_comment[key] = len(value)
 
-    return render(request, 'post.html', context={'posts': UserPost.objects.get(id=int(post_id)), 'comments':PostComment.objects.filter(postId=int(post_id)) , 'id_comment': my_comment})
+    return render(request, 'our_post\post.html', context={'posts': UserPost.objects.get(id=int(post_id)), 'comments':PostComment.objects.filter(postId=int(post_id)) , 'id_comment': my_comment})
