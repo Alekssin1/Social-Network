@@ -1,6 +1,6 @@
 from django import forms
 
-from chats.models import UserPost
+from our_post.models import UserPost
 from .models import *
 
 # модель пост

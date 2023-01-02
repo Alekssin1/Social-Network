@@ -1,4 +1,5 @@
 from django.contrib import admin
-from chats.models import UserPost
+from our_post.models import UserPost, Photo
 # Register your models here.
-# admin.site.register(UserPost)
+admin.site.register(UserPost)
+admin.site.register(Photo)

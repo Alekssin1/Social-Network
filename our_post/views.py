@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from .forms import Post_form
-from chats.models import Photo, UserPost, PostLikes, PostComment
+from our_post.models import UserPost, PostLikes, PostComment, Photo 
 from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 User = get_user_model()

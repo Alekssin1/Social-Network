@@ -1,7 +1,7 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
-from chats.models import PostComment, UserPost
+from our_post.models import PostComment, UserPost
 from django.contrib.auth.models import User
 from datetime import datetime
 
