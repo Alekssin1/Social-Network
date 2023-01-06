@@ -78,7 +78,7 @@ active_text
           {% endif %}
         </div>
         <div class="post_comment">
-          <a href="{% url 'comments' post_id=a.id  %}" class="nickname"><img
+          <a href="{{ a.get_absolute_url }}" class="nickname"><img
               src="{% static 'img/lenta/comment.svg'%}" class="post_comment-img" /></a>
           {% for key, value in id_comment.items %}
           {% if key == a.id %}

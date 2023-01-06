@@ -2,9 +2,10 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from our_post.models import PostComment, UserPost
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from datetime import datetime
 
+User = get_user_model()
 
 class CommentConsumer(AsyncWebsocketConsumer):
     async def connect(self):

@@ -98,7 +98,7 @@
             <img class="avatar online" src="{% static 'assets/dp.png' %}" alt="avatar">
             <img class="status" src="{% static 'img/Ellipse 3.png' %}">
             <div class="about_user">
-                <a href="{% url 'chat' username=user.username%}" class="nickname">{{user.username}}</a>
+                <a href="{{ user.getExcludeObjects }}" class="nickname">{{user.username}}</a>
                 <span class="last_time">У мережі 5 хв тому</span>
             </div>
         </div>

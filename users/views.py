@@ -30,12 +30,12 @@ def profile(request, username):
     return render(request, "baza.html", data)
 
 
-def followToggle(request, author):
-    authorObj = User.objects.get(username=author)
+def followToggle(request, username):
+    authorObj = User.objects.get(username=username)
     currentUserObj = User.objects.get(username=request.user.username)
     following = authorObj.following.all()
 
-    if author != currentUserObj.username:
+    if username != currentUserObj.username:
         if currentUserObj in following:
             authorObj.following.remove(currentUserObj.id)
         else:

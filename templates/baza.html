@@ -40,9 +40,9 @@
                         </h6>
                         {% if user.is_authenticated %}
                           {% if user in author.following.all %}
-                              <a href="{% url 'followToggle' author=author.username  %}" class="btn btn-primary">Unfollow</a>
+                              <a href="{{ author.getPkFollowToggle }}" class="btn btn-primary">Unfollow</a>
                             {% else %}
-                              <a  href="{% url 'followToggle' author=author.username  %}" class="btn btn-primary"> Follow </a>
+                              <a  href="{{ author.getPkFollowToggle }}" class="btn btn-primary"> Follow </a>
                           {% endif %}
                             <button class="btn btn-outline-primary">Message</button>
                         {% else %}

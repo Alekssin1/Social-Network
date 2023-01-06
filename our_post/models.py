@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 from django.conf import settings
+from django.urls import reverse
 
 # модель, що відповідає за пости
 class UserPost(models.Model):
@@ -11,6 +12,9 @@ class UserPost(models.Model):
 
     class Meta: 
         db_table = "user_post"
+        
+    def get_absolute_url(self):
+        return reverse('comments', kwargs={'post_id': self.pk})
         
 # модель, що відповідає за фото до постів    
 class Photo(models.Model):

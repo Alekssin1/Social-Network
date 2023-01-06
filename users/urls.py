@@ -9,5 +9,5 @@ urlpatterns = [
  
  path("profile/<str:username>/", views.profile, name="profile"),
  
- path("followToggle/<str:author>/",views.followToggle, name="followToggle")
+ path("followToggle/<str:username>/",views.followToggle, name="followToggle")
 ]
