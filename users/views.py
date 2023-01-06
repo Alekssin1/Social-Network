@@ -36,7 +36,6 @@ def followToggle(request, author):
     following = authorObj.following.all()
 
     if author != currentUserObj.username:
-        print("aboba")
         if currentUserObj in following:
             authorObj.following.remove(currentUserObj.id)
         else:
