@@ -22,7 +22,7 @@ def chatPage(request, username):
     #дістаєм об'єкти користувача з бази данних
     users = User.objects.exclude(username=request.user.username)
     #дістаємо з бази данних повідомлення за цим полем
-    message_objs = ChatModel.objects.filter(thread_name=set_name_group())
+    message_objs = ChatModel.objects.filter(thread_name=set_name_group(request, user_obj))
     #рендеримо сторінку чату, передаючи параметрами користувачів та повідомлення
     return render(request, 'chat\chat.html', context={'user': user_obj, 'users': users, 'messages': message_objs})
 

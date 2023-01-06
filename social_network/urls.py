@@ -28,7 +28,7 @@ urlpatterns = [
     path('', index, name='home'),
     
     # сторінка з можливістю зараєструватися, вийти з акаунту або стоворити його
-    path('home/', include('users.urls'), name="main"),
+    path('home/', include('users.urls')),
     
     # сторінка, створена за допомогою шаблонів django для авторизації
     path('accounts/', include('django.contrib.auth.urls')),
@@ -44,4 +44,6 @@ urlpatterns = [
     
     # сторінка чату з користувачем
     path('<username>/', chatPage, name='chat'),
+    
+    
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # значення для завантаження медіа файлів(картинок до посту)

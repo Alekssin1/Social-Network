@@ -150,3 +150,4 @@ LOGOUT_REDIRECT_URL = "home_home"
 SITE_ID = 1
 
 MEDIA_URL = "media/"
+AUTH_USER_MODEL = 'users.User'
