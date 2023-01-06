@@ -11,7 +11,7 @@ class UserPost(models.Model):
 
     class Meta: 
         db_table = "user_post"
-    
+        
 # модель, що відповідає за фото до постів    
 class Photo(models.Model):
     photo = models.FileField(upload_to='uploads/')
