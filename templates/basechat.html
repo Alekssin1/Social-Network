@@ -77,7 +77,7 @@
           alt="profile_left"
         />
       </div>
-      <a href="{% url 'home_home' %}" style="text-decoration:none;"><span class="profile_left_text text_left">Профіль</span></a>
+      <a href="{{ user.getUsernameProfile }}" style="text-decoration:none;"><span class="profile_left_text text_left">Профіль</span></a>
     </div>
 
     <div class="user_create">

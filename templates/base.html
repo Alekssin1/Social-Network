@@ -27,7 +27,8 @@
       
           <div class="main_in_left_menu left_menu_block left_hover">
             <div class="left_side-img">
-              <img class="home_pic" src="{% static 'img/active_home.svg' %}" alt="main_left" />
+              {% block imgHome %}
+              {% endblock %}
             </div>
             <a href="{% url 'our_post' %}" style="text-decoration:none;"><span  class="main_left_text text_left {% block active_main %}{% endblock %}" >Головна</span></a>
           </div>
@@ -54,7 +55,7 @@
             <div class="left_side-img">
               <img class="profile_pic" src="{% static 'img/profile.svg' %}" alt="profile_left" />
             </div>
-            <a href="{% url 'home_home' %}" style="text-decoration:none;"><span class="profile_left_text text_left {% block active_profile %}{% endblock %}">Профіль</span></a>
+            <a href="{{ user.getUsernameProfile }}" style="text-decoration:none;"><span class="profile_left_text text_left {% block active_profile %}{% endblock %}">Профіль</span></a>
           </div>
 
           <div class="user_create">

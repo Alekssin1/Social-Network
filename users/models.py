@@ -16,4 +16,8 @@ class User(AbstractUser):
     
     def getPkFollowToggle(self):
         return reverse('followToggle', kwargs={'username': self.username})
+    
+    def getUsernameProfile(self):
+        return reverse('profile', kwargs={'username': self.username})
+    
       
