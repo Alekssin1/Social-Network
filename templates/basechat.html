@@ -30,7 +30,7 @@
       <div class="left_side-img">
         <img
           class="home_pic"
-          src="{% static 'img/home.svg' %}"
+          src="{% static 'img/home.png' %}"
           alt="main_left"
         />
       </div>
@@ -79,7 +79,24 @@
       </div>
       <a href="{% url 'home_home' %}" style="text-decoration:none;"><span class="profile_left_text text_left">Профіль</span></a>
     </div>
+
+    <div class="user_create">
+      <img src="{% static 'img/yrnluGNIVTxYe1Isj4iCg.jpg' %}" alt="avatar" class="avatar_on_page">
+      
+        {% if user.is_authenticated %}
+          <div class="user_create-in-a">
+            <span class="user_create-name">{{ user.username }}</span>
+            <a class="user_create_account" href="{% url 'logout' %}">Logout</a>
+          </div>
+        {% else %}
+        <div class="user_create-in-a">
+          <a class="user_create_account-second" href="{% url 'signup' %}">Sign Up</a>
+          <a class="user_create_account-second" href="{% url 'login' %}">Login</a>
+        </div>
+        {% endif %}
+    </div>
   </div>
+  <div></div>
   <div class="chat__users">
     <div class="nick_name">
         <a style="text-decoration:none;" href="{% url 'home_home' %}">

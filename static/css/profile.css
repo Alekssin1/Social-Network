@@ -1,0 +1,137 @@
+.top_line {
+    height: 60px;
+    background: #1E1E1E !important;
+    border: 1px #8E8E8E solid;
+    border-top: 0px;
+    display: flex;
+    align-items: center;
+}
+
+.back_button_profile {
+    margin-left: 15px;
+}
+
+.name__profile, .profile_user_name {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: #F5F5F7;
+}
+
+.profile_page-body {
+    border: 1px #8E8E8E solid;
+    border-top: 0px;
+
+}
+.back_button_profile {
+    cursor: pointer;
+    margin-top: 8px;
+    margin-right: 10px;
+}
+
+.profile_photo_background-photo {
+    width: 100%;
+}
+
+.avatar_on_profile-block {
+    position: relative;
+}
+
+.avatar_on_profile {
+    border-radius: 50%;
+    width: 133px;
+    height: 133px;
+    margin-left: 45px;
+    position: absolute;
+    top: -66.5px;
+}
+
+.another_users-info {
+    display: flex;
+    margin-top: 10px;
+}
+
+.followers {
+    margin-left: 20px;
+}
+
+.about_profile_user {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px #8E8E8E solid;
+    padding-bottom: 45px;
+}
+
+.about_profile_user-first-block {
+    margin: 0px 45px;
+    margin-top: 96.5px;
+}
+
+.following, .followers {
+    cursor: pointer;
+}
+
+.edit_profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px 45px;
+}
+
+.edit_profile-button {
+    width: 140px;
+    height: 46px;
+    left: 1169px;
+    top: 475px;
+    background: #1C9BF0;
+    border-radius: 14px;
+    border: 0px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 29px;
+    color: #F5F5F7;
+}
+
+.my_posts {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 29px;
+    color: #F5F5F7;
+}
+
+.my_posts-number {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 29px;
+    color: #F5F5F7;
+}
+
+.block_with_post_user {
+    margin: 0px 45px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.edit_profile-link {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 29px;
+    color: #F5F5F7;
+    text-decoration: none;
+}
+
+.edit_profile-link:hover {
+    text-decoration: none;
+    color: #F5F5F7;
+}

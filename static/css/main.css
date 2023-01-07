@@ -327,3 +327,50 @@
     margin-top: 15px;
 }
 
+.avatar_on_page {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.user_create {
+    padding: 10px 20px!important;
+    display: flex;
+    align-items: center;
+}
+
+.left_side_menu {
+    position: fixed;
+}
+
+.user_create-name {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+}
+
+.user_create_account, .user_create_account:hover {
+    text-decoration: none;
+    color: #6d7075;
+} 
+.user_create_account {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    color: #6d7075;
+}
+
+.user_create_account-second, .user_create_account-second:hover {
+    text-decoration: none;
+    color: #F5F5F7;
+}
+
+.user_create-in-a {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+
+}
