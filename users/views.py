@@ -23,6 +23,7 @@ class SignUp(CreateView):
     
 def profile(request, username):
     userProfile = User.objects.get(username=username)
+    print("userProfile")
 
     data = {
         "author": userProfile,
