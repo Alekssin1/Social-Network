@@ -204,3 +204,8 @@ function scrollToDown(idElement) {
         behavior: 'smooth'
       });
 }
+
+var chat = document.getElementById('chat');
+chat.scrollTop = chat.scrollHeight;
+
+// scrollToDown("chat");
