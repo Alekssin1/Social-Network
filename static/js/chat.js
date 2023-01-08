@@ -82,6 +82,8 @@ socket.onmessage = function (e) {
             }
         }
     }
+
+    scrollToDown("chat");
 }
 
 // спрацьовує при натисненні на кнопку відправити повідомлення (текстове)
@@ -188,6 +190,17 @@ jQuery(document).ready(function () {
         } else {
             $(this).attr('data-recording', '');
             myRecorder.stop(listObject);
+            scrollToDown("chat");
         }
     });
 });
+
+function scrollToDown(idElement) {
+    const element = document.getElementById(idElement);
+    const h = element.scrollHeight;
+    element.scrollTo({
+        top: h,
+        left: 0,
+        behavior: 'smooth'
+      });
+}
