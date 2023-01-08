@@ -83,9 +83,9 @@
     <div class="user_create">
       <img src="{% static 'img/yrnluGNIVTxYe1Isj4iCg.jpg' %}" alt="avatar" class="avatar_on_page">
       
-        {% if user.is_authenticated %}
+        {% if request.user.is_authenticated %}
           <div class="user_create-in-a">
-            <span class="user_create-name">{{ user.username }}</span>
+            <span class="user_create-name">{{ request.user.username }}</span>
             <a class="user_create_account" href="{% url 'logout' %}">Logout</a>
           </div>
         {% else %}
