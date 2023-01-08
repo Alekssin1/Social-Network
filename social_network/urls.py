@@ -28,10 +28,12 @@ urlpatterns = [
     path('', index, name='home'),
     
     # сторінка з можливістю зараєструватися, вийти з акаунту або стоворити його
-    path('home/', include('users.urls')),
+    path('profile/', include('django.contrib.auth.urls')),
+    
+    path('profile/', include('users.urls')),
     
     # сторінка, створена за допомогою шаблонів django для авторизації
-    path('accounts/', include('django.contrib.auth.urls')),
+    
     
     # сторінка з всіма постами
     path('post/', posts, name='our_post'),
