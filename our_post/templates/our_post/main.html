@@ -41,10 +41,11 @@ active_text
   </div>
   {% for a in posts %}
   <div class="user_post">
-    <img class="avatar online" src="{% static 'assets/dp.png' %}" alt="avatar" />
+    <a href="{{ a.userId.getUsernameProfile }}" class="user_avatar-link"><img class="avatar online" src="{% static 'assets/dp.png' %}"
+      alt="avatar" /></a>
     <div class="about_user">
     
-      <span class="nickname_post">{{a.userId}}</span>
+      <a href="{{ a.userId.getUsernameProfile }}" class="nickname_post">{{a.userId}}</a>
  
       <span class="post_subtitle">
         {{a.message}}

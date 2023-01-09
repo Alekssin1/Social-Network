@@ -12,7 +12,7 @@ active_text
 {% endblock %}
 
 {% block imgHome %}
-<img class="home_pic" src="{% static 'img/home.png' %}" alt="main_left"/>
+<img class="home_pic" src="{% static 'img/home.png' %}" alt="main_left" />
 {% endblock %}
 
 {% block css %}
@@ -26,7 +26,8 @@ active_text
     <span class="name__profile">{{ author.username }}</span>
   </div>
   <div class="profile_photo_background">
-    <img src="{% static 'img/profile_photo_background.jpg' %}" alt="profile_photo_background" class="profile_photo_background-photo">
+    <img src="{% static 'img/profile_photo_background.jpg' %}" alt="profile_photo_background"
+      class="profile_photo_background-photo">
   </div>
 
   <div class="avatar_on_profile-block">
@@ -45,23 +46,23 @@ active_text
       </div>
       <div class="edit_profile">
         {% if user.is_authenticated %}
-          {% if user != author %}
-            {% if user in author.following.all %}
-                <button class="edit_profile-button">
-                  <a class="edit_profile-link" href="{{ author.getPkFollowToggle }}">Unfollow</a>
-                </button>
-              {% else %}
-              <button class="edit_profile-button">
-                <a class="edit_profile-link" href="{{ author.getPkFollowToggle }}">Follow</a>
-              </button>
-            {% endif %}
-          {% else %}
-              <button class="edit_profile-button">Edit</button>
-          {% endif %}
+        {% if user != author %}
+        {% if user in author.following.all %}
+        <button class="edit_profile-button">
+          <a class="edit_profile-link" href="{{ author.getPkFollowToggle }}">Unfollow</a>
+        </button>
+        {% else %}
+        <button class="edit_profile-button">
+          <a class="edit_profile-link" href="{{ author.getPkFollowToggle }}">Follow</a>
+        </button>
+        {% endif %}
+        {% else %}
+        <button class="edit_profile-button">Edit</button>
+        {% endif %}
         {% endif %}
       </div>
     </div>
-    
+
     <div class="block_with_post_user">
       {% getCountPostUser id=author.id as countPost %}
       <span class="my_posts">My posts: <span class="my_posts-number">{{ countPost }}</span></span>
@@ -69,27 +70,28 @@ active_text
 
     {% getPostUser id=author.id as postThisUser %}
 
-      {% for post in postThisUser %}
-      <div class="user_post">
-        <img class="avatar online" src="{% static 'assets/dp.png' %}" alt="avatar" />
-        <div class="about_user">
-        
-          <span class="nickname_post">{{post.userId}}</span>
-     
-          <span class="post_subtitle">
-            {{post.message}}
-          </span>
-          {% for img in post.content.all %}
-          <div class="div_image_post">
-            <img src="{{img.photo.url}}" class="image_post" />
-          </div>
-          {% endfor%}
-        </div>
-      </div>
-      {% endfor %}
+    {% for post in postThisUser %}
+    <div class="user_post">
+      <a href="{{ post.userId.getUsernameProfile }}" class="user_avatar-link"><img class="avatar online" src="{% static 'assets/dp.png' %}"
+          alt="avatar" /></a>
 
-    
+      <div class="about_user">
+
+        <a href="{{ post.userId.getUsernameProfile }}" class="nickname_post">{{post.userId}}</a>
+
+        <span class="post_subtitle">
+          {{post.message}}
+        </span>
+        {% for img in post.content.all %}
+        <div class="div_image_post">
+          <img src="{{img.photo.url}}" class="image_post" />
+        </div>
+        {% endfor%}
+      </div>
+    </div>
+    {% endfor %}
+
+
   </div>
-</div>  
+</div>
 {% endblock %}
-  

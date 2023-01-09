@@ -46,6 +46,11 @@
     line-height: 29px;
 }
 
+.user_avatar-link, .user_avatar-link:hover, .nickname_post, .nickname_post:hover {
+    text-decoration: none;
+    color: #F5F5F7;
+}
+
 .picture_item_post {
     margin-top: 5px;
     width: 22px;

@@ -131,7 +131,7 @@
     text-decoration: none;
 }
 
-.edit_profile-link:hover {
+.edit_profile-link:hover, .user_avatar-link, .user_avatar-link:hover, .nickname_post, .nickname_post:hover {
     text-decoration: none;
     color: #F5F5F7;
 }
@@ -141,3 +141,4 @@
     padding: 20px 10px;
     border-bottom: none!important;
 }
+
