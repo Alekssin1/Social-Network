@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% load our_post_tags %}
+
 {% block title %}
 Profile
 {% endblock %}
@@ -61,8 +63,30 @@ active_text
     </div>
     
     <div class="block_with_post_user">
-      <span class="my_posts">My posts: <span class="my_posts-number">657</span></span>
+      {% getCountPostUser id=author.id as countPost %}
+      <span class="my_posts">My posts: <span class="my_posts-number">{{ countPost }}</span></span>
     </div>
+
+    {% getPostUser id=author.id as postThisUser %}
+
+      {% for post in postThisUser %}
+      <div class="user_post">
+        <img class="avatar online" src="{% static 'assets/dp.png' %}" alt="avatar" />
+        <div class="about_user">
+        
+          <span class="nickname_post">{{post.userId}}</span>
+     
+          <span class="post_subtitle">
+            {{post.message}}
+          </span>
+          {% for img in post.content.all %}
+          <div class="div_image_post">
+            <img src="{{img.photo.url}}" class="image_post" />
+          </div>
+          {% endfor%}
+        </div>
+      </div>
+      {% endfor %}
 
     
   </div>

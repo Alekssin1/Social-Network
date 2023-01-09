@@ -135,3 +135,9 @@
     text-decoration: none;
     color: #F5F5F7;
 }
+
+.user_post {
+    border-top: 1px #8E8E8E solid;
+    padding: 20px 10px;
+    border-bottom: none!important;
+}
