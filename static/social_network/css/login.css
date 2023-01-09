@@ -3,7 +3,7 @@
 /* BASIC */
 
 html {
-  background-color: #56baed;
+  background-color: #1E1E1E !important;
 }
 
 body {
@@ -51,8 +51,8 @@ h2 {
   max-width: 450px;
   position: relative;
   padding: 0px;
-  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  /* -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3); */
+  /* box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3); */
   text-align: center;
 }
 
