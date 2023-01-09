@@ -16,14 +16,16 @@ active_text
 {% block content%}
 <div class="post">
   <div class="user_post">
-    <img
+    <a href="{{ posts.userId.getUsernameProfile }}" class="user_avatar-link">
+      <img
       class="avatar online"
       src="{{posts.userId.avatar.avatar.url}}"
       alt="avatar"
     />
+    </a>
    
     <div class="about_user">
-      <span class="nickname_post post_nick">{{posts.userId}}</span>
+      <a href="{{ posts.userId.getUsernameProfile }}" class="nickname_post post_nick">{{posts.userId}}</a>
       <span class="post_subtitle post_text">
         {{posts.message}}
       </span>
@@ -55,13 +57,16 @@ active_text
   
   <div class="comment_to_post">
       <div class="user_add_post">
+        <a href="{{ user.getUsernameProfile }}" class="user_avatar-link">
           <img
             class="avatar online"
             src="{{user.avatar.avatar.url}}"
             alt="avatar"
           />
+        </a>
+        
           <div class="about_user">
-              <span class="nickname_post">{{user.username}}</span>
+            <a href="{{ user.getUsernameProfile }}" class="nickname_post">{{user.username}}</a>
           </div>
       </div>                           
           <textarea class="post_input form-control" placeholder="Текст коментаря..." id="comment_input" type="text", rows="2"></textarea>                       
@@ -71,13 +76,16 @@ active_text
       {% for comment in comments %}
 
       <div class="user_post">
-        <img
+        <a href="{{ comment.userId.getUsernameProfile }}" class="user_avatar-link">
+          <img
           class="avatar online"
           src="{{comment.userId.avatar.avatar.url}}"
           alt="avatar"
         />
+        </a>
+        
           <div class="about_user">
-            <span class="nickname_post">{{comment.userId}}</span>
+            <a href="{{ comment.userId.getUsernameProfile }}" class="nickname_post">{{comment.userId}}</a>
             <span class="comment_text post_subtitle">{{comment.commentText}}</span>
           </div>               
       </div>
