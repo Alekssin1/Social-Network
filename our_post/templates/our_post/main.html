@@ -17,7 +17,7 @@ active_text
 <div class="post">
   {% if request.user.username %}
   <div class="user_add_post">
-    <img class="avatar online" src="{% static 'assets/dp.png' %}" alt="avatar" />
+    <img class="avatar online" src="{{user.avatar.avatar.url}}" alt="avatar" />
     <div class="about_user">
       <span class="nickname_post">{{user.username}}</span>
     </div>
@@ -41,7 +41,7 @@ active_text
   </div>
   {% for a in posts %}
   <div class="user_post">
-    <a href="{{ a.userId.getUsernameProfile }}" class="user_avatar-link"><img class="avatar online" src="{% static 'assets/dp.png' %}"
+    <a href="{{ a.userId.getUsernameProfile }}" class="user_avatar-link"><img class="avatar online" src="{{a.userId.avatar.avatar.url}}"
       alt="avatar" /></a>
     <div class="about_user">
     

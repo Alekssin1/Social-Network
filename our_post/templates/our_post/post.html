@@ -18,7 +18,7 @@ active_text
   <div class="user_post">
     <img
       class="avatar online"
-      src="{% static 'assets/dp.png' %}"
+      src="{{posts.userId.avatar.avatar.url}}"
       alt="avatar"
     />
    
@@ -57,7 +57,7 @@ active_text
       <div class="user_add_post">
           <img
             class="avatar online"
-            src="{% static 'assets/dp.png' %}"
+            src="{{user.avatar.avatar.url}}"
             alt="avatar"
           />
           <div class="about_user">
@@ -73,7 +73,7 @@ active_text
       <div class="user_post">
         <img
           class="avatar online"
-          src="{% static 'assets/dp.png' %}"
+          src="{{comment.userId.avatar.avatar.url}}"
           alt="avatar"
         />
           <div class="about_user">

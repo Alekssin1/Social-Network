@@ -31,7 +31,7 @@ active_text
   </div>
 
   <div class="avatar_on_profile-block">
-    <img src="{% static 'img/yrnluGNIVTxYe1Isj4iCg.jpg' %}" alt="avatar" class="avatar_on_profile">
+    <img src="{{author.avatar.avatar.url}}" alt="avatar" class="avatar_on_profile">
   </div>
   <div class="profile_page-body">
     <div class="about_profile_user">
@@ -72,7 +72,7 @@ active_text
 
     {% for post in postThisUser %}
     <div class="user_post">
-      <a href="{{ post.userId.getUsernameProfile }}" class="user_avatar-link"><img class="avatar online" src="{% static 'assets/dp.png' %}"
+      <a href="{{ post.userId.getUsernameProfile }}" class="user_avatar-link"><img class="avatar online" src="{{author.avatar.avatar.url}}"
           alt="avatar" /></a>
 
       <div class="about_user">
