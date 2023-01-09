@@ -2,10 +2,14 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
 
+class AvatarUser(models.Model):
+    avatar = models.FileField(upload_to='uploads/avatar/')
+    
 class User(AbstractUser):
     following = models.ManyToManyField(
         "self", blank=True, related_name="followers", symmetrical=False
     )
+    avatar = models.ForeignKey(AvatarUser, on_delete=models.CASCADE, null=True, blank=True)
 
 
     def __str__(self):
@@ -20,4 +24,3 @@ class User(AbstractUser):
     def getUsernameProfile(self):
         return reverse('profile', kwargs={'username': self.username})
     
-      

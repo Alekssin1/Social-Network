@@ -149,5 +149,6 @@ LOGOUT_REDIRECT_URL = "our_post"
 
 SITE_ID = 1
 
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = "media/"
 AUTH_USER_MODEL = 'users.User'

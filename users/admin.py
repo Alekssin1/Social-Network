@@ -1,5 +1,5 @@
 from django.contrib import admin
-from users.models import User
+from users.models import User, AvatarUser
 # Register your models here.
 
 
@@ -8,3 +8,4 @@ class UserAdmin(admin.ModelAdmin):
     
     
 admin.site.register(User, UserAdmin)
+admin.site.register(AvatarUser)
