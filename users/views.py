@@ -28,7 +28,7 @@ def profile(request, username):
     data = {
         "author": userProfile,
     }
-    return render(request, "baza.html", data)
+    return render(request, "users/profile.html", data)
 
 
 def followToggle(request, username):
