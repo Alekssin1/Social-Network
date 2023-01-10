@@ -53,7 +53,8 @@
       
           <div class="profile_in_left_menu left_menu_block left_hover">
             <div class="left_side-img">
-              <img class="profile_pic" src="{% static 'img/profile.svg' %}" alt="profile_left" />
+              {% block imgProfile %}
+              {% endblock %}
             </div>
             <a {% if user.is_authenticated %} href="{{ user.getUsernameProfile }}"  {% else %} href="{% url 'login' %}" {% endif %} style="text-decoration:none;"><span class="profile_left_text text_left {% block active_profile %}{% endblock %}">Профіль</span></a>
           </div>
