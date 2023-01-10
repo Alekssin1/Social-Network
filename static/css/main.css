@@ -379,3 +379,31 @@
     margin-left: 20px;
 
 }
+
+.top_line {
+    height: 60px;
+    background: #1E1E1E !important;
+    border: 1px #8E8E8E solid;
+    border-top: 0px;
+    display: flex;
+    align-items: center;
+}
+
+.back_button_profile {
+    margin-left: 15px;
+}
+
+.back_button_profile {
+    cursor: pointer;
+    margin-top: 8px;
+    margin-right: 10px;
+}
+
+.name__profile {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: #F5F5F7;
+}
