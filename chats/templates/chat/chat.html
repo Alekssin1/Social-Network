@@ -10,7 +10,7 @@ Chat
   <div class="title_chat">
     <img
       class="title_chat_avatar"
-      src="{% static 'assets/dp.png' %}"
+      src="{{ user.avatar.avatar.url }}"
       alt="avatar"
     />
     <img
@@ -55,7 +55,7 @@ Chat
     <div class="chat_message">
       <img
         class="title_chat_avatar"
-        src="{% static 'assets/dp.png' %}"
+        src="{{ user.avatar.avatar.url }}"
         alt="avatar"
       />
       <span class="chat_message-text">{{message.message}}</span>
