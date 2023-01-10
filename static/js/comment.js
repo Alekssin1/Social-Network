@@ -52,8 +52,11 @@ socket.onmessage = function (e) {
               </div>               
           </div>`
     }
-
+    window.scrollTo(0, document.body.scrollHeight);
 }
+
+
+
 
 // при натисканні на кнопку відправляємо json за допомогою сокетів в social_network.consumers.py 
 document.querySelector('#post-comment-submit').onclick = function (e) {
