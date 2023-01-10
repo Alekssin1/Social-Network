@@ -96,13 +96,13 @@
   <div></div>
   <div class="chat__users">
     <div class="nick_name">
-        <a style="text-decoration:none;" href="{% url 'home_home' %}">
+        <!-- <a style="text-decoration:none;" href="{% url 'home_home' %}"> -->
             {% if request.user.username %}
             <span class="nick_name-text">{{request.user.username}}</span>
             {%else%}
             <span class="nick_name-text">Nick</span>
             {%endif%}
-        </a>
+        <!-- </a> -->
         <img class="nick_vector" src="{% static 'img/Vector.svg' %}" alt="vector">
     </div>
   

@@ -26,7 +26,7 @@ active_text
 {% block content%}
 <div class="profile_page">
   <div class="top_line">
-    <img src="{% static 'img/back.svg' %}" alt="back" class="back_button_profile">
+    <img src="{% static 'img/back.svg' %}" alt="back" class="back_button_profile" onclick="javascript:history.back();" ">
     <span class="name__profile">{{ author.username }}</span>
   </div>
   <div class="profile_photo_background">
