@@ -60,7 +60,7 @@
           </div>
 
           <div class="user_create">
-            <img src="{% static 'img/yrnluGNIVTxYe1Isj4iCg.jpg' %}" alt="avatar" class="avatar_on_page">
+            <img src="{{ request.user.avatar.avatar.url }}" alt="avatar" class="avatar_on_page">
             
               {% if user.is_authenticated %}
                 <div class="user_create-in-a">
