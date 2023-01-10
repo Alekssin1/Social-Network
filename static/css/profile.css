@@ -124,3 +124,7 @@
     border-bottom: none!important;
 }
 
+.profile_photo_background {
+    border-left: 1px #8E8E8E solid;
+    border-right: 1px #8E8E8E solid;
+}
