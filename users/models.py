@@ -2,6 +2,18 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
 
+class BackgroundUser(models.Model):
+    background = models.FileField(upload_to='uploads/background/')
+    default = models.BooleanField(default=False)
+    
+    @staticmethod
+    def defaultImg():
+        if BackgroundUser.objects.filter(default=True).exists():
+            return BackgroundUser.objects.get(default=True).pk
+        defaultBackground = BackgroundUser(background='static/default/background/background.png', default=True)
+        defaultBackground.save()
+        return defaultBackground.pk
+
 class AvatarUser(models.Model):
     avatar = models.FileField(upload_to='uploads/avatar/')
     default = models.BooleanField(default=False)
@@ -9,17 +21,17 @@ class AvatarUser(models.Model):
     @staticmethod
     def defaultImg():
         if AvatarUser.objects.filter(default=True).exists():
-            return AvatarUser.objects.get(default=True)
+            return AvatarUser.objects.get(default=True).pk
         defaultAvatar = AvatarUser(avatar='static/default/avatar/dp.png', default=True)
         defaultAvatar.save()
-        return defaultAvatar
+        return defaultAvatar.pk
     
 class User(AbstractUser):
     following = models.ManyToManyField(
         "self", blank=True, related_name="followers", symmetrical=False
     )
     avatar = models.ForeignKey(AvatarUser, on_delete=models.CASCADE, default=AvatarUser.defaultImg)
-
+    background = models.ForeignKey(BackgroundUser, on_delete=models.CASCADE, default=BackgroundUser.defaultImg)
 
     def __str__(self):
           return f"{self.username}"
