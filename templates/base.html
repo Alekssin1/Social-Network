@@ -24,12 +24,12 @@
           <div class="left_side_menu-logo">
             <a href="{% url 'our_post' %}"><img class="left_side-img" src="{% static 'img/Facebook.svg' %}" alt="main_left" /></a>
           </div>
-      
+
           <div class="main_in_left_menu left_menu_block left_hover">
-            <div class="left_side-img">
+            <a class="left_side-img" href="{% url 'our_post' %}">
               {% block imgHome %}
               {% endblock %}
-            </div>
+            </a>
             <a href="{% url 'our_post' %}" style="text-decoration:none;"><span  class="main_left_text text_left {% block active_main %}{% endblock %}" >Головна</span></a>
           </div>
           <div class="search_in_left_menu left_menu_block left_hover">
@@ -45,17 +45,17 @@
             <span class="notifications_left_text text_left">Сповіщення</span>
           </div>
           <div class="message_in_left_menu left_menu_block left_hover">
-            <div class="left_side-img">
+            <a class="left_side-img" href="{% url 'home' %}">
               <img class="message_pic" src="{% static 'img/Non_active_message.svg' %}" alt="message_left" />
-            </div>
+            </a>
             <a href="{% url 'home' %}" style="text-decoration:none;"><span class="message_left_text text_left {% block active_message %}{% endblock %}" >Повідомлення</span></a>
           </div>
       
           <div class="profile_in_left_menu left_menu_block left_hover">
-            <div class="left_side-img">
+            <a class="left_side-img" {% if user.is_authenticated %} href="{{ user.getUsernameProfile }}"  {% else %} href="{% url 'login' %}" {% endif %}>
               {% block imgProfile %}
               {% endblock %}
-            </div>
+            </a>
             <a {% if user.is_authenticated %} href="{{ user.getUsernameProfile }}"  {% else %} href="{% url 'login' %}" {% endif %} style="text-decoration:none;"><span class="profile_left_text text_left {% block active_profile %}{% endblock %}">Профіль</span></a>
           </div>
 
