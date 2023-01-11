@@ -16,6 +16,9 @@ class UserPost(models.Model):
         
     def get_absolute_url(self):
         return reverse('comments', kwargs={'post_id': self.pk})
+    
+    def get_pk_for_like(self):
+        return reverse('like_post', kwargs={'id': self.pk})
         
 # модель, що відповідає за фото до постів    
 class Photo(models.Model):

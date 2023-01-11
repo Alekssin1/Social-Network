@@ -308,7 +308,7 @@
     display: block;
 }
 
-#like-button {
+.like-button {
     background: none;
     border: none;
     padding: 0px;

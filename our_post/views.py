@@ -59,4 +59,4 @@ def comments(request, post_id):
     # створює словник, в якому за ключем(айді посту), зберігається кількість коментів
     count_elem(all_comment, my_comment)
 
-    return render(request, 'our_post\post.html', context={'posts': UserPost.objects.get(id=int(post_id)), 'comments':PostComment.objects.filter(postId=int(post_id)) , 'id_comment': my_comment})
+    return render(request, 'our_post\post.html', context={'post': UserPost.objects.get(id=int(post_id)), 'comments':PostComment.objects.filter(postId=int(post_id)) , 'id_comment': my_comment})

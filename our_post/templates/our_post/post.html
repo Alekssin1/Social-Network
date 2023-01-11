@@ -22,34 +22,37 @@ active_text
 
   <div class="top_line">
     <img src="{% static 'img/back.svg' %}" alt="back" class="back_button_profile" onclick="javascript:history.back();">
-    <span class="name__profile">{{ posts.userId }}</span>
+    <span class="name__profile">{{ post.userId }}</span>
   </div>
 
   <div class="user_post">
-    <a href="{{ posts.userId.getUsernameProfile }}" class="user_avatar-link">
+    <a href="{{ post.userId.getUsernameProfile }}" class="user_avatar-link">
       <img
       class="avatar online"
-      src="{{posts.userId.avatar.avatar.url}}"
+      src="{{post.userId.avatar.avatar.url}}"
       alt="avatar"
     />
     </a>
    
     <div class="about_user">
-      <a href="{{ posts.userId.getUsernameProfile }}" class="nickname_post post_nick">{{posts.userId}}</a>
+      <a href="{{ post.userId.getUsernameProfile }}" class="nickname_post post_nick">{{post.userId}}</a>
       <span class="post_subtitle post_text">
-        {{posts.message}}
+        {{post.message}}
       </span>
-      {% for img in posts.content.all %}
+      {% for img in post.content.all %}
   
       <div class="div_image_post">
         <img src="{{img.photo.url}}" class="image_post" />
       </div>
       {% endfor%}
       <div class="about_post" > 
+        <div class="post_like">
+          {% include "our_post/partials/like.html" %}
+        </div>
         <div class="post_comment">
           <img src="{% static 'img/lenta/comment.svg'%}" class="post_comment-img" />
           {% for key, value in id_comment.items %}
-          {% if key == posts.id %}
+          {% if key == post.id %}
 
           <span>{{ value }}</span>
 
@@ -58,7 +61,7 @@ active_text
           
         </div>
         <div class="post_time"> 
-          <span>{{ posts.createdAt|date:"M d" }}</span>
+          <span>{{ post.createdAt|date:"M d" }}</span>
         </div>
 
       </div>
@@ -106,7 +109,7 @@ active_text
 {% endblock %}
 
 {% block scripts %}
-{{posts.id|json_script:"json-posts"}}
+{{post.id|json_script:"json-posts"}}
 {{request.user.id|json_script:"json-comment-username"}}
 <script src="{% static 'js/textarea.js' %}"></script>
 <script src="{% static 'js/comment.js' %}"></script>
