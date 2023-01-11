@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from .forms import Post_form
-from our_post.models import UserPost, PostLikes, PostComment, Photo 
+from our_post.models import UserPost, PostComment, Photo 
 from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
-from .services import save_form_db, id_post_with_like_to_list, dict_with_user_and_id_post,\
-count_elem, like_to_db
+from .services import save_form_db, dict_with_user_and_id_post,\
+count_elem
 
 User = get_user_model()
 
@@ -21,22 +21,9 @@ def posts(request):
             save_form_db("content", request, post_form)
             return HttpResponseRedirect(request.path)
     else:
-        id_post_like = []
-        all_like = {}
-        my_like = {}
         all_comment = {}
         my_comment = {}
-        
-        # записую в список айді всіх постів, до яких я поставив лайк
-        id_post_with_like_to_list(id_post_like, request)
-
-        # створює словник, ключем в якому є айді посту, а значеннями список
-        # з користувачів які натиснули лайк
-        dict_with_user_and_id_post(all_like, PostLikes.objects.all())
-
-        # створює словник, в якому за ключем(айді посту), зберігається кількість лайків
-        count_elem(all_like, my_like)
-
+    
         # створює словник, ключем в якому є айді посту, а значеннями список
         # з користувачів які відправили комент
         dict_with_user_and_id_post(all_comment, PostComment.objects.order_by("id"))
@@ -44,32 +31,20 @@ def posts(request):
         # створює словник, в якому за ключем(айді посту), зберігається кількість коментів
         count_elem(all_comment, my_comment)
 
-        return render(request, 'our_post\main.html', context={'form': Post_form(), 'posts': UserPost.objects.order_by("-id"), 'like_posts': id_post_like, 'number_like': my_like, 'all_id_post': list(my_like.keys()), 'id_comment': my_comment})
+        return render(request, 'our_post\main.html', context={'form': Post_form(), 'posts': UserPost.objects.order_by("-id"), 'id_comment': my_comment})
 
 
-def like(request):
-    # отримання данних про натискання на лайк
-    post_id = request.GET.get('result', False)
-    data = {"like": False}
-    temp = True
-
-    try:
-        # дістає об'єкт лайку до цього посту
-        my_like = PostLikes.objects.get(
-            postId_id=int(post_id), userId_id=request.user)
-    except Exception:
-        temp = False
-
-    # якщо об'єкт не існує і лайк поставлений, то заносить данні в базу
-    if post_id and not temp:
-        data = like_to_db(request, post_id)
-        return JsonResponse(data)
-
-    # якщо запис є і натисуто повторно, видаляє цей лайк за бази
-    if temp:
-        my_like.delete()
-
-    return JsonResponse(data)
+def like_post(request, id):
+    if request.method == "POST":
+        instance = UserPost.objects.get(id=id)
+        if not instance.likes.filter(id=request.user.id).exists():
+            instance.likes.add(request.user)
+            instance.save() 
+            return render( request, 'our_post/partials/like.html', context={'post':instance})
+        else:
+            instance.likes.remove(request.user)
+            instance.save() 
+            return render( request, 'our_post/partials/like.html', context={'post':instance})
 
 
 @login_required(login_url="/accounts/login/")

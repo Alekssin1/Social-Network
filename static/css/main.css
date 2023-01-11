@@ -308,6 +308,12 @@
     display: block;
 }
 
+#like-button {
+    background: none;
+    border: none;
+    padding: 0px;
+}
+
 .comment_to_post {
     border-bottom: 1px #8E8E8E solid;
 }

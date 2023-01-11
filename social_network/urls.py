@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from chats.views import index, chatPage
-from our_post.views import posts, like, comments
+from our_post.views import comments, posts, like_post
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -32,17 +32,8 @@ urlpatterns = [
     
     path('profile/', include('users.urls')),
     
-    # сторінка, створена за допомогою шаблонів django для авторизації
-    
-    
-    # сторінка з всіма постами
-    path('post/', posts, name='our_post'),
-    
-    # сторінка для обробки ajax запитів, які додають лайк
-    path("post/ajax", like, name='like'),
-    
-    # сторінка для коментаря 
-    path('post/comments/<post_id>', comments, name='comments'),
+    #сторінка з всіма постами
+    path('post/', include('our_post.urls')),
     
     # сторінка чату з користувачем
     path('<username>/', chatPage, name='chat'),
