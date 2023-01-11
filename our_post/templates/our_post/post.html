@@ -51,13 +51,7 @@ active_text
         </div>
         <div class="post_comment">
           <img src="{% static 'img/lenta/comment.svg'%}" class="post_comment-img" />
-          {% for key, value in id_comment.items %}
-          {% if key == post.id %}
-
-          <span>{{ value }}</span>
-
-          {% endif %}
-          {% endfor %}
+          <span>{{ post.comments.count }}</span>
           
         </div>
         <div class="post_time"> 
@@ -86,7 +80,7 @@ active_text
           <button id="post-comment-submit" class="button_comment" onclick="scrollToEndPage()">Відповісти</button>                                   
     </div>
     <div id="comment_for_post">
-      {% for comment in comments %}
+      {% for comment in post.comments.all %}
 
       <div class="user_post">
         <a href="{{ comment.userId.getUsernameProfile }}" class="user_avatar-link">

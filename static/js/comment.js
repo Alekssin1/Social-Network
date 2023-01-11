@@ -61,9 +61,10 @@ socket.onmessage = function (e) {
 // при натисканні на кнопку відправляємо json за допомогою сокетів в social_network.consumers.py 
 document.querySelector('#post-comment-submit').onclick = function (e) {
      // отримання даних з поля вводу
+    
     const comment_input = document.querySelector('#comment_input');
     const comment = comment_input.value;
-
+    
     socket.send(JSON.stringify({
         'comment': comment,
         'username': comment_username,

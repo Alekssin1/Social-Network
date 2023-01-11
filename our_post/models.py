@@ -10,6 +10,7 @@ class UserPost(models.Model):
     createdAt = models.DateTimeField(default=datetime.now())
     content = models.ManyToManyField("Photo")
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name="collected_votes")
+    comments = models.ManyToManyField("PostComment", blank=True,)
 
     class Meta: 
         db_table = "user_post"
@@ -27,7 +28,6 @@ class Photo(models.Model):
 # модель, що відповідає за коментарі до постів
 class PostComment(models.Model):
     userId = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) 
-    postId = models.ForeignKey(UserPost, on_delete=models.CASCADE) 
     commentText = models.TextField()
     createdAt = models.DateTimeField(default=datetime.now())
     

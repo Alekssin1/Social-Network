@@ -32,6 +32,7 @@ class CommentConsumer(AsyncWebsocketConsumer):
             id = await self.get_post(int(self.room_group_name))
    
             # зберігання даних в базі
+            
             await self.save_comment(usernames, id, comment, myTime)
             user = self.get_username(usernames)
             
@@ -65,8 +66,10 @@ class CommentConsumer(AsyncWebsocketConsumer):
     # зберігає коментар в базі
     @database_sync_to_async
     def save_comment(self, id_user, id_post, comment, myTime):
-        PostComment.objects.create(
-            userId=id_user, postId=id_post, commentText=comment, createdAt=myTime)
+        comment = PostComment(userId=id_user, commentText=comment, createdAt=myTime)
+        comment.save()
+        id_post.comments.add(comment)
+        id_post.save()
 
     # отримує об'єкти користувачів з бази 
     @database_sync_to_async

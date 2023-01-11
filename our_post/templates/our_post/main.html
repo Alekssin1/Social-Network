@@ -70,11 +70,9 @@ active_text
         <div class="post_comment">
           <a href="{{ post.get_absolute_url }}" class="nickname"><img
               src="{% static 'img/lenta/comment.svg'%}" class="post_comment-img" /></a>
-          {% for key, value in id_comment.items %}
-          {% if key == post.id %}
-          <span>{{ value }}</span>
-          {% endif %}
-          {% endfor %}
+          
+          <span>{{ post.comments.count }}</span>
+          
         </div>
         <div class="post_time">
           <span>{{ post.createdAt|date:"M d" }}</span>
