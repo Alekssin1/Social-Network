@@ -26,6 +26,7 @@ active_text
 {% block content%}
 <div class="profile_page">
   {% include "users/partials/userFollowing.html" %}
+  {% include "users/partials/userFollowers.html" %}
   <div class="top_line">
     <img src="{% static 'img/back.svg' %}" alt="back" class="back_button_profile" onclick="javascript:history.back();">
     <span class="name__profile">{{ author.username }}</span>
@@ -45,8 +46,8 @@ active_text
           {{ author.username }}
         </div>
         <div class="another_users-info">
-          <div class="following" onclick="PopUpShow()">{{ author.following.count }} Following</div>
-          <div class="followers">{{ author.followers.count }} Followers</div>
+          <div class="following" onclick="FollowingShow()">{{ author.following.count }} Following</div>
+          <div class="followers" onclick="FollowedShow()">{{ author.followers.count }} Followers</div>
         </div>
       </div>
       <div class="edit_profile">
