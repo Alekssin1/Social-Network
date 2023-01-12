@@ -78,14 +78,15 @@
     </div>
 
     <div class="user_create">
-      <img src="{{ request.user.avatar.avatar.url }}" alt="avatar" class="avatar_on_page">
       
         {% if request.user.is_authenticated %}
+        <img src="{{ request.user.avatar.avatar.url }}" alt="avatar" class="avatar_on_page">
           <div class="user_create-in-a">
             <span class="user_create-name">{{ request.user.username }}</span>
             <a class="user_create_account" href="{% url 'logout' %}">Logout</a>
           </div>
         {% else %}
+        <img src="{% static 'default/avatar/dp.png' %}" alt="avatar" class="avatar_on_page">
         <div class="user_create-in-a">
           <a class="user_create_account-second" href="{% url 'signup' %}">Sign Up</a>
           <a class="user_create_account-second" href="{% url 'login' %}">Login</a>
