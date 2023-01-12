@@ -37,6 +37,6 @@ def like_post(request, id):
             return render( request, 'our_post/partials/like.html', context={'post':instance})
 
 
-@login_required(login_url="/accounts/login/")
+@login_required(login_url="/profile/login/")
 def comments(request, post_id):
     return render(request, 'our_post\post.html', context={'post': UserPost.objects.get(id=int(post_id))})

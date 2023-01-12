@@ -15,7 +15,7 @@ def index(request):
     #рендерим головну сторінку чаму, передаючи параметром данні про користувача
     return render(request, 'chat\index.html', context={'users': users})
 
-@login_required(login_url="/accounts/login/")
+@login_required(login_url="/profile/login/")
 def chatPage(request, username):
     #дістаєм об'єкти користувача з бази данних
     user_obj = User.objects.get(username=username)
