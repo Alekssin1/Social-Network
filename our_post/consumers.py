@@ -35,6 +35,7 @@ class CommentConsumer(AsyncWebsocketConsumer):
             
             await self.save_comment(usernames, id, comment, myTime)
             user = self.get_username(usernames)
+            avatar = await self.get_avatar(usernames)
             
             # відправка даних в comment_message
             await self.channel_layer.group_send(
@@ -44,17 +45,20 @@ class CommentConsumer(AsyncWebsocketConsumer):
                     'comment': comment,
                     'username': user,
                     'timestamp': myTime,
+                    'avatar': avatar.avatar.url
                 }
             )
 
     async def comment_message(self, event):
         comment = event['comment']
         username = event['username']
+        avatar = event['avatar']
 
         # відправка даних в json для подальшої роботи в js
         await self.send(text_data=json.dumps({
             'comment': comment,
             'username': username,
+            'avatar': avatar,
         }))
 
     async def disconnect(self, code):
@@ -84,3 +88,7 @@ class CommentConsumer(AsyncWebsocketConsumer):
     # отримує поле username з об'єкта
     def get_username(self, obj):
         return getattr(obj, 'username')
+    
+    @database_sync_to_async
+    def get_avatar(self, obj):
+        return getattr(obj, 'avatar')

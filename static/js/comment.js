@@ -43,7 +43,7 @@ socket.onmessage = function (e) {
         document.querySelector('#comment_for_post').innerHTML += `<div class="user_post">
             <img
               class="avatar online"
-              src="{% static 'assets/dp.png' %}"
+              src="${data.avatar}"
               alt="avatar"
             />
               <div class="about_user">
