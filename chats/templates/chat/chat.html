@@ -7,7 +7,7 @@ Chat
 
 {% block chat %}
 <div class="chat__chat">
-  <div class="title_chat" id="title_chat">
+  <div class="title_chat" id="title_chat-id">
     <img
       class="title_chat_avatar"
       src="{{ user.avatar.avatar.url }}"
@@ -22,7 +22,7 @@ Chat
     <div class="title_chat_about_user">
       <span class="title_chat_nickname">{{user.username}}</span>
       {% if not user.is_online %}
-      <span class="title_chat_last_time">У мережі 5 хв тому</span>
+      <span class="title_chat_last_time">У мережі {{ user.last_time_online|date:"H:i  D" }}</span>
       {% endif %}
     </div>
   </div>
