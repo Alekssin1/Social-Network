@@ -209,5 +209,3 @@ function scrollToDown(idElement) {
 
 var chat = document.getElementById('chat');
 chat.scrollTop = chat.scrollHeight;
-
-// scrollToDown("chat");

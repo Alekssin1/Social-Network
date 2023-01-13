@@ -107,21 +107,11 @@
         <img class="nick_vector" src="{% static 'img/Vector.svg' %}" alt="vector">
     </div>
   
-    <div class="another_users">
-        {% for user in users %}
-            <div class="user">
-            <img class="avatar online" src="{{ user.avatar.avatar.url }}" alt="avatar">
-            
-            {% if user.is_online %}
-            <img class="status" src="{% static 'img/Ellipse 3.png' %}">
-            {% endif %}
-            <div class="about_user">
-                <a href="{{ user.getExcludeObjects }}" class="nickname">{{user.username}}</a>
-                <span class="last_time">У мережі 5 хв тому</span>
-            </div>
-        </div>
-        {% endfor %}
+    <div class="another_users" id="another_users">
+      {% include "partials/user_chat.html" %}
     </div>
+    
+    
   </div>
 {% block chat %}
 {% endblock %}
@@ -129,6 +119,8 @@
 
 {% block scripts %}
 {% endblock %}
+<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+<script type="text/javascript" src="{% static 'js/reload.js' %}"></script>
 <body>
 
 </body>

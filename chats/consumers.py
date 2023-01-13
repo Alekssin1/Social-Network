@@ -27,7 +27,7 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
             self.channel_name
         )
         await self.set_online_user(my_id, True)
-        await self.set_online_user(other_user_id, True)
+        # await self.set_online_user(other_user_id, True)
         await self.accept()
 
     async def receive(self, text_data=None, bytes_data=None):
@@ -72,9 +72,9 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
 
     async def disconnect(self, code):
         my_id = self.scope['user'].id
-        other_user_id = self.scope['url_route']['kwargs']['id']
+        # other_user_id = self.scope['url_route']['kwargs']['id']
         await self.set_online_user(my_id, False)
-        await self.set_online_user(other_user_id, False)
+        # await self.set_online_user(other_user_id, False)
         self.channel_layer.group_discard(
             self.room_group_name,
             self.channel_name

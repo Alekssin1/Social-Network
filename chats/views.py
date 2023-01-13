@@ -25,6 +25,3 @@ def chatPage(request, username):
     message_objs = ChatModel.objects.filter(thread_name=set_name_group(request, user_obj))
     #рендеримо сторінку чату, передаючи параметрами користувачів та повідомлення
     return render(request, 'chat\chat.html', context={'user': user_obj, 'users': users, 'messages': message_objs})
-
-
-
