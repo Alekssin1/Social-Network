@@ -3,6 +3,8 @@ const id = JSON.parse(document.getElementById('json-username').textContent);
 // отримую юзернейм користувача якиий пише повідомлення
 const message_username = JSON.parse(document.getElementById('json-message-username').textContent);
 
+const avatar_user = JSON.parse(document.getElementById('json-avatar').textContent)
+
 // створюю новий об'єкт вебсокету
 const socket = new WebSocket(
     'ws://'
@@ -75,7 +77,7 @@ socket.onmessage = function (e) {
             } else {
                 // виводить повідомлення зліва, оскільки користувач отримав повідомлення
                 document.querySelector('#chat').innerHTML += `<div class="chat_message">
-            <img class="title_chat_avatar" src="{% static 'assets/dp.png' %}" alt="avatar">
+            <img class="title_chat_avatar" src="${avatar_user}" alt="avatar">
             <span class="chat_message-text">${data.message}</span>
             <span class="time_message">${datetime}</span>
         </div>`

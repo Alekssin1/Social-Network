@@ -23,7 +23,6 @@ def posts(request):
 
         return render(request, 'our_post\main.html', context={'form': Post_form(), 'posts': UserPost.objects.order_by("-id")})
 
-
 def like_post(request, id):
     if request.method == "POST":
         instance = UserPost.objects.get(id=id)

@@ -5,13 +5,13 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 
 from users.forms import CustomUserCreationForm
 
 User = get_user_model()
 # рендер сторінки з можливостю реєстрації, виходу з облікового запису та створення облікового запису
 def home(request):
-    
     return render(request, "users/home.html")
 
 # відмалювання регістрації 
@@ -23,7 +23,6 @@ class SignUp(CreateView):
     
 def profile(request, username):
     userProfile = User.objects.get(username=username)
-    print("userProfile")
 
     data = {
         "author": userProfile,
