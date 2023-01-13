@@ -111,7 +111,10 @@
         {% for user in users %}
             <div class="user">
             <img class="avatar online" src="{{ user.avatar.avatar.url }}" alt="avatar">
+            
+            {% if user.is_online %}
             <img class="status" src="{% static 'img/Ellipse 3.png' %}">
+            {% endif %}
             <div class="about_user">
                 <a href="{{ user.getExcludeObjects }}" class="nickname">{{user.username}}</a>
                 <span class="last_time">У мережі 5 хв тому</span>

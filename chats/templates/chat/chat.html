@@ -13,10 +13,12 @@ Chat
       src="{{ user.avatar.avatar.url }}"
       alt="avatar"
     />
+    {% if user.is_online %}
     <img
       class="title_chat_status"
       src="{% static 'img/Ellipse 3.png' %}"
     />
+    {% endif %}
     <div class="title_chat_about_user">
       <span class="title_chat_nickname">{{user.username}}</span>
       <span class="title_chat_last_time">У мережі 5 хв тому</span>

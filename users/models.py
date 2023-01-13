@@ -32,6 +32,7 @@ class User(AbstractUser):
     )
     avatar = models.ForeignKey(AvatarUser, on_delete=models.CASCADE, default=AvatarUser.defaultImg)
     background = models.ForeignKey(BackgroundUser, on_delete=models.CASCADE, default=BackgroundUser.defaultImg)
+    is_online = models.BooleanField(default=False)
 
     def __str__(self):
           return f"{self.username}"

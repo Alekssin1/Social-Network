@@ -3,6 +3,9 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from chats.models import ChatModel
 from datetime import datetime
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 class PersonalChatConsumer(AsyncWebsocketConsumer):
@@ -23,7 +26,8 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
             self.room_group_name,
             self.channel_name
         )
-
+        await self.set_online_user(my_id, True)
+        await self.set_online_user(other_user_id, True)
         await self.accept()
 
     async def receive(self, text_data=None, bytes_data=None):
@@ -67,6 +71,10 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
         }))
 
     async def disconnect(self, code):
+        my_id = self.scope['user'].id
+        other_user_id = self.scope['url_route']['kwargs']['id']
+        await self.set_online_user(my_id, False)
+        await self.set_online_user(other_user_id, False)
         self.channel_layer.group_discard(
             self.room_group_name,
             self.channel_name
@@ -77,5 +85,10 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
     def save_message(self, username, thread_name, message, myTime, base=False):
         ChatModel.objects.create(
             sender=username, message=message, thread_name=thread_name, timestamp=myTime, base64=base)
+      
+    @database_sync_to_async  
+    def set_online_user(self, id, data):
+        User.objects.filter(id=id).update(is_online=data)
+        
 
     
