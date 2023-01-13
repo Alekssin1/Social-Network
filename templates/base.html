@@ -52,11 +52,11 @@
           </div>
       
           <div class="profile_in_left_menu left_menu_block left_hover">
-            <a class="left_side-img" {% if user.is_authenticated %} href="{{ user.getUsernameProfile }}"  {% else %} href="{% url 'login' %}" {% endif %}>
+            <a class="left_side-img" {% if request.user.is_authenticated %} href="{{ request.user.getUsernameProfile }}"  {% else %} href="{% url 'login' %}" {% endif %}>
               {% block imgProfile %}
               {% endblock %}
             </a>
-            <a {% if user.is_authenticated %} href="{{ user.getUsernameProfile }}"  {% else %} href="{% url 'login' %}" {% endif %} style="text-decoration:none;"><span class="profile_left_text text_left {% block active_profile %}{% endblock %}">Профіль</span></a>
+            <a {% if request.user.is_authenticated %} href="{{ request.user.getUsernameProfile }}"  {% else %} href="{% url 'login' %}" {% endif %} style="text-decoration:none;"><span class="profile_left_text text_left {% block active_profile %}{% endblock %}">Профіль</span></a>
           </div>
 
           <div class="user_create">
