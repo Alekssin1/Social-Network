@@ -10,7 +10,7 @@
     <div class="about_user">
         <a href="{{ user.getExcludeObjects }}" class="nickname">{{user.username}}</a>
         {% if not user.is_online %}
-        <span class="last_time">У мережі 5 хв тому</span>
+        <span class="last_time">У мережі {{ user.last_time_online|date:"H:i  D" }}</span>
         {% endif %}
     </div>
 </div>
