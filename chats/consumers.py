@@ -43,9 +43,16 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
             if await self.get_last_date(self.room_group_name):
                 last_date = await self.get_last_date(self.room_group_name)
             
-                diffetence_day = myTime  - last_date.timestamp.replace(tzinfo=None)
-
-                if diffetence_day.days >= 1:
+                myTime_year = myTime.year
+                myTime_day = myTime.day
+                last_date_year = last_date.timestamp.year
+                last_date_day = last_date.timestamp.day
+                
+                diffetence_day = False
+                if myTime_year >= last_date_year and myTime_day > last_date_day:   
+                    diffetence_day =  True
+                
+                if diffetence_day:
                     new_day = True
             else:
                 new_day = True
