@@ -38,12 +38,22 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
         if message.strip() != "": 
             username = data['username']
             myTime = datetime.now()
-        
+            
+            new_day = False
+            if await self.get_last_date(self.room_group_name):
+                last_date = await self.get_last_date(self.room_group_name)
+            
+                diffetence_day = myTime  - last_date.timestamp.replace(tzinfo=None)
+
+                if diffetence_day.days >= 1:
+                    new_day = True
+            else:
+                new_day = True
             # перевіряємо чи є в повідомленні голосове
             if data['base64'] == "1":
-                await self.save_message(username, self.room_group_name, message, myTime, True)
+                await self.save_message(username, self.room_group_name, message, myTime, True, new_day)
             else:
-                await self.save_message(username, self.room_group_name, message, myTime)
+                await self.save_message(username, self.room_group_name, message, myTime, False, new_day)
             # відправка даних в chat_message 
             await self.channel_layer.group_send(
                 self.room_group_name,
@@ -53,6 +63,7 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
                     'username': username,
                     'timestamp': myTime,
                     'base64': data['base64'],
+                    'new_day': new_day,
                 }
             )
 
@@ -61,12 +72,14 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
         message = event['message']
         username = event['username']
         base64 = event['base64']
+        new_day = event['new_day']
 
         # відправка даних в json, для подальшої роботи в js
         await self.send(text_data=json.dumps({
             'message': message,
             'username': username,
             'base64': base64,
+            'new_day': new_day,
         }))
 
     async def disconnect(self, code):
@@ -80,9 +93,9 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
 
     # збереження повідомлення в базі даних
     @database_sync_to_async
-    def save_message(self, username, thread_name, message, myTime, base=False):
+    def save_message(self, username, thread_name, message, myTime, base=False, new_day=False):
         ChatModel.objects.create(
-            sender=username, message=message, thread_name=thread_name, timestamp=myTime, base64=base)
+            sender=username, message=message, thread_name=thread_name, timestamp=myTime, base64=base, new_day=new_day)
       
     @database_sync_to_async  
     def set_online_user(self, id, data):
@@ -91,4 +104,10 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
     @database_sync_to_async  
     def set_last_time_online(self, id):
         User.objects.filter(id=id).update(last_time_online=datetime.now())
+        
+    @database_sync_to_async
+    def get_last_date(self, thread_name):
+        return ChatModel.objects.filter(thread_name=thread_name).last()
+
+
         

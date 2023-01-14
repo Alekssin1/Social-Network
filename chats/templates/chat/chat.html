@@ -29,6 +29,10 @@ Chat
   <div class="chat" id="chat">
     {% for message in messages %} 
     {% if message.sender == request.user.username %}
+
+    {% if message.new_day %}
+    <div class="data_up"><span class="data_up-text">{{ message.timestamp|date:"F j" }}</span></div>
+    {% endif %}
     
     {% if message.base64 == 1 %}
     <div class="right for_audio">
@@ -47,6 +51,10 @@ Chat
    
     {% else %}
 
+    {% if message.new_day %}
+    <div class="data_up"><span class="data_up-text">{{ message.timestamp|date:"F j" }}</span></div>
+    {% endif %}
+    
     {% if message.base64 == 1 %}
     <div class="left ">
       <audio controls="controls" autobuffer="autobuffer" class="my_audio">

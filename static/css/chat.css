@@ -284,6 +284,20 @@ body {
     
 }
 
+.data_up {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 0px;
+}
+
+.data_up-text {
+    padding: 5px 15px;
+    background: #282828;
+    border-radius: 30px;
+}
+
 .chat::-webkit-scrollbar-thumb {
     background-color: #3a3a3a;
     border-radius: 9em;

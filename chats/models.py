@@ -9,6 +9,7 @@ class ChatModel(models.Model):
     thread_name = models.CharField(null=True, blank=True, max_length=50)
     timestamp = models.DateTimeField(null=True)
     base64 = models.BooleanField(default=False)
+    new_day = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return self.message

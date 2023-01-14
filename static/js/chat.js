@@ -37,6 +37,9 @@ socket.onmessage = function (e) {
     var datetime =
         + ((currentdate.getHours()) < 10 ? "0" + currentdate.getHours() : currentdate.getHours()) + ":"
         + ((currentdate.getMinutes()) < 10 ? "0" + currentdate.getMinutes() : currentdate.getMinutes());
+
+    var new_day_date = months[currentdate.getMonth()] + " " + currentdate.getDate()
+   
     // отримуємо данні з chats.consumers.py
     const data = JSON.parse(e.data);
 
@@ -44,6 +47,9 @@ socket.onmessage = function (e) {
     // 1 - голосове
     // 0 - текст
     if (data.base64 === "1") {
+        if (data.new_day){
+            document.querySelector('#chat').innerHTML += `<div class="data_up"><span class="data_up-text">${new_day_date}</span></div>`
+        }
         // перевірка на користувача який відправляє повідомлення
         if (data.username == message_username) {
             // виводить повідомлення справа, оскільки користувач відправив його
@@ -67,6 +73,9 @@ socket.onmessage = function (e) {
     else {
         // перевірка на пустий рядок
         if (data.message != "") {
+            if (data.new_day){
+                document.querySelector('#chat').innerHTML += `<div class="data_up"><span class="data_up-text">${new_day_date}</span></div>`
+            }
             // перевірка на користувача який відправляє повідомлення
             if (data.username == message_username) {
                 // виводить повідомлення справа, оскільки користувач відправив його
@@ -206,6 +215,21 @@ function scrollToDown(idElement) {
         behavior: 'smooth'
       });
 }
+
+const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ]
 
 var chat = document.getElementById('chat');
 chat.scrollTop = chat.scrollHeight;
