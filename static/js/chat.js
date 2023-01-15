@@ -59,6 +59,7 @@ socket.onmessage = function (e) {
             </audio> 
             <span class="time_message">${datetime}</span>
           </div>`
+            scrollToDown("chat");
 
         } else {
             // виводить повідомлення зліва, оскільки користувач отримав повідомлення
@@ -83,7 +84,9 @@ socket.onmessage = function (e) {
             <span class="chat_message-text">${data.message}</span>
             <span class="time_message">${datetime}</span>
         </div>`
+                scrollToDown("chat");
             } else {
+                
                 // виводить повідомлення зліва, оскільки користувач отримав повідомлення
                 document.querySelector('#chat').innerHTML += `<div class="chat_message">
             <img class="title_chat_avatar" src="${avatar_user}" alt="avatar">
@@ -93,8 +96,6 @@ socket.onmessage = function (e) {
             }
         }
     }
-
-    scrollToDown("chat");
 }
 
 // спрацьовує при натисненні на кнопку відправити повідомлення (текстове)
