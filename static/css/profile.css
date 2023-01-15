@@ -159,6 +159,120 @@
     z-index: 101;
 }
 
+.user_form_edit-label_username {
+    height: 44px !important;
+    border-radius: 22px !important;
+    background: #2D2D2D !important;
+    width: 82% !important;
+    margin: 10px 0px 20px 0px !important;
+    outline: none !important;
+    border: none !important;
+    color: #F5F5F7 !important;
+    padding: 10px 15px !important;
+    font-family: 'Montserrat' !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    font-size: 14px !important;
+    line-height: 17px !important;
+    box-shadow: none !important;
+}
+
+.input-file-avatar, .input-file-background {
+	position: relative;
+	display: inline-block;
+}
+
+.avatar_file {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	outline: none;
+	text-decoration: none;
+	font-size: 14px;
+	vertical-align: middle;
+	color: #F5F5F7 !important;
+	text-align: center;
+	border-radius: 10px;
+	background-color: #1C9BF0;
+	line-height: 22px;
+	height: 40px;
+	padding: 10px 20px;
+	box-sizing: border-box;
+	border: none;
+	margin: 0;
+	transition: background-color 0.2s;
+    margin-left: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat' !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    font-size: 18px !important;
+}
+
+.id_avatar_show-photo{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.id_background_show-photo {
+    height: 200px;
+    width: 450px;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 10px 0px;
+}
+
+.input-file-avatar, .input-file-background {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+	display: block;
+	width: 0;
+	height: 0;
+}
+
+.d-f {
+    display: flex;
+    align-items: center;
+}
+
+.m-my {
+    margin: 10px 0px;
+}
+
+p {
+    margin: 0!important;
+}
+
+.user_form_edit-form .helptext {
+    display: none;
+}
+
+.user_form_edit-form label, #id_username {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 29px;
+    color: #F5F5F7; 
+}
+
+.user_form_edit-button {
+    background: #1C9BF0;
+    border: 0px;
+    border-radius: 10px;
+    padding: 5px 15px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 29px;
+    color: #F5F5F7;
+}
+
 .user_form::-webkit-scrollbar {
     width: 10px;
     height: 8px; 

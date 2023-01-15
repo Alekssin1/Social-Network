@@ -12,6 +12,10 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username']
+        labels = {'username':'Нікнейм'}
+        widgets = {
+            'username': forms.TextInput(attrs={'class':'user_form_edit-label_username'})
+        }
         
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
@@ -21,6 +25,10 @@ class AvatarUserForm(forms.ModelForm):
     class Meta:
         model = AvatarUser
         fields = ['avatar']
+        labels = {'avatar':'Аватар'}
+        widgets = {
+            'avatar': forms.FileInput(attrs={'class':'input-file-avatar'})
+        }
         
     def __init__(self, *args, **kwargs):
         super(AvatarUserForm, self).__init__(*args, **kwargs)
@@ -30,6 +38,10 @@ class BackgroundForm(forms.ModelForm):
     class Meta:
         model = BackgroundUser
         fields = ['background']
+        labels = {'background':'Фонова фотографія'}
+        widgets = {
+            'background': forms.FileInput(attrs={'class':'input-file-background'})
+        }
         
     def __init__(self, *args, **kwargs):
         super(BackgroundForm, self).__init__(*args, **kwargs)
