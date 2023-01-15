@@ -315,6 +315,18 @@ body {
     height: calc(100vh - 68px);
 }
 
+.another_users::-webkit-scrollbar {
+    width: 10px;
+    height: 8px;
+    background-color: #2c2c2c;
+    border-radius: 9em;
+}
+
+.another_users::-webkit-scrollbar-thumb {
+    background-color: #3a3a3a;
+    border-radius: 9em;
+}
+
 .input_message {
     display: flex;
     flex-direction: row;
