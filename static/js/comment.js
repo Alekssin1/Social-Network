@@ -1,5 +1,6 @@
 var id = JSON.parse(document.getElementById('json-posts').textContent);
 const comment_username = JSON.parse(document.getElementById('json-comment-username').textContent);
+const comment_realusername = JSON.parse(document.getElementById('json-comment-realusername').textContent);
 
 // створюємо новий об'єкт вебсокету
 const socket = new WebSocket(
@@ -52,7 +53,10 @@ socket.onmessage = function (e) {
               </div>               
           </div>`
     }
-    window.scrollTo(0, document.body.scrollHeight);
+    if (data.username == comment_realusername) { 
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+    
 }
 
 

@@ -105,6 +105,7 @@ active_text
 {% block scripts %}
 {{post.id|json_script:"json-posts"}}
 {{request.user.id|json_script:"json-comment-username"}}
+{{request.user.username|json_script:"json-comment-realusername"}}
 <script src="{% static 'js/textarea.js' %}"></script>
 <script src="{% static 'js/comment.js' %}"></script>
 {% endblock %}
