@@ -8,6 +8,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from .forms import UserProfileForm, AvatarUserForm, BackgroundForm
 from our_post.views import posts
+from chats.models import ChatModel
 
 from users.forms import CustomUserCreationForm
 
@@ -65,6 +66,7 @@ def edit_profile(request, username):
                     User.objects.filter(username='').update(username=new_username)
                 else:
                     User.objects.filter(username=username).update(username=new_username)
+                    ChatModel.objects.filter(sender=username).update(sender=new_username)
         if form_avatar.is_valid() and form_background.is_valid():
             if form_avatar.cleaned_data['avatar']:
                 avatar = form_avatar.save()
