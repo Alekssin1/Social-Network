@@ -1,9 +1,36 @@
 from django.contrib.auth.forms import UserCreationForm
-
-from .models import User
+from django import forms
+from .models import User, AvatarUser, BackgroundUser
 
 class CustomUserCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = User
         fields = UserCreationForm.Meta.fields
+        
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username']
+        
+    def __init__(self, *args, **kwargs):
+        super(UserProfileForm, self).__init__(*args, **kwargs)
+        self.fields['username'].required = False
+        
+class AvatarUserForm(forms.ModelForm):
+    class Meta:
+        model = AvatarUser
+        fields = ['avatar']
+        
+    def __init__(self, *args, **kwargs):
+        super(AvatarUserForm, self).__init__(*args, **kwargs)
+        self.fields['avatar'].required = False
+        
+class BackgroundForm(forms.ModelForm):
+    class Meta:
+        model = BackgroundUser
+        fields = ['background']
+        
+    def __init__(self, *args, **kwargs):
+        super(BackgroundForm, self).__init__(*args, **kwargs)
+        self.fields['background'].required = False

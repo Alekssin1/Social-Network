@@ -146,6 +146,19 @@
     z-index: 101;
 }
 
+.user_form_edit {
+    position: fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 8px;
+    width: auto;
+    min-width: 650px;
+    z-index: 101;
+}
+
 .user_form::-webkit-scrollbar {
     width: 10px;
     height: 8px; 
@@ -159,7 +172,7 @@
     border-radius: 9em;
 }
 
-.user_form-back {
+.user_form-back, .user_form_edit-back {
     position: fixed;
     top: 0;
     left: 0;
