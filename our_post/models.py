@@ -20,6 +20,9 @@ class UserPost(models.Model):
     
     def get_pk_for_like(self):
         return reverse('like_post', kwargs={'id': self.pk})
+    
+    def get_pk_for_delete(self):
+        return reverse('delete', kwargs={'id_post': self.pk})
         
 # модель, що відповідає за фото до постів    
 class Photo(models.Model):

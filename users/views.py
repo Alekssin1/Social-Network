@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from .forms import UserProfileForm, AvatarUserForm, BackgroundForm
-from our_post.views import posts
+# from our_post.views import posts
 from chats.models import ChatModel
 
 from users.forms import CustomUserCreationForm
@@ -80,7 +80,5 @@ def edit_profile(request, username):
                     User.objects.filter(username=new_username).update(background=background)
                 else:
                     User.objects.filter(username=new_username).update(background=background)
-        return HttpResponseRedirect(reverse(posts))
-            
-                
+        return HttpResponseRedirect(reverse(profile, args=[new_username]))
             

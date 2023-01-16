@@ -120,10 +120,15 @@
     color: #F5F5F7;
 }
 
+.nickname_post {
+    width: auto;
+}
+
 .user_post {
     border-top: 1px #8E8E8E solid;
     padding: 20px 10px;
     border-bottom: none!important;
+    position: relative;
 }
 
 .profile_photo_background {
@@ -231,6 +236,21 @@
     width: 20px;
     margin: 0px 15px;
     cursor: pointer;
+}
+
+.delete_post {
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    right: 20px;
+}
+
+.delete_post-link {
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    right: 20px;
 }
 
 .id_background-hide-img{

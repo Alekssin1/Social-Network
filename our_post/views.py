@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from .forms import Post_form
-from our_post.models import UserPost, PostComment, Photo 
+from our_post.models import UserPost
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .services import save_form_db
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from users.views import profile
 
 User = get_user_model()
 
@@ -39,3 +42,10 @@ def like_post(request, id):
 @login_required(login_url="/profile/login/")
 def comments(request, post_id):
     return render(request, 'our_post\post.html', context={'post': UserPost.objects.get(id=int(post_id))})
+
+def del_post(request, id_post):
+    user = UserPost.objects.get(id=id_post)
+    UserPost.objects.filter(id=id_post).delete()
+    
+    return HttpResponseRedirect(reverse(profile, args=[user.userId.username]))
+    
