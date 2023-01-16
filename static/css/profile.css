@@ -225,6 +225,23 @@
     margin: 10px 0px;
 }
 
+.id_avatar-hide-img, .id_background-hide-img {
+    display: none;
+    height: 20px;
+    width: 20px;
+    margin: 0px 15px;
+    cursor: pointer;
+}
+
+.id_background-hide-img{
+    margin-top: 10px;
+}
+
+.id_background_show, .id_avatar_show {
+    display: flex;
+    
+}
+
 .input-file-avatar, .input-file-background {
 	position: absolute;
 	z-index: -1;
