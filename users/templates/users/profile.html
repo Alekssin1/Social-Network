@@ -97,7 +97,7 @@ active_text
             <img src="{% static 'img/premium.png' %}" alt="premium" class="premium-img" />
           {% endif %}
         </a>
-        {% if request.user.username == author.username %}
+        {% if request.user.username == author.username or request.user.is_superuser %}
         <a href="{{ post.get_pk_for_delete }}" class="delete_post-link">
           <img id="delete_post" class="delete_post" src="{% static 'img/no.png' %}" alt="delete_post">
         </a>
