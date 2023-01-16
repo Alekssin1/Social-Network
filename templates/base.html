@@ -64,7 +64,11 @@
               {% if user.is_authenticated %}
               <img src="{{ request.user.avatar.avatar.url }}" alt="avatar" class="avatar_on_page">
                 <div class="user_create-in-a">
-                  <span class="user_create-name">{{ user.username }}</span>
+                  <span class="user_create-name">{{ user.username }} 
+                    {% if user.is_superuser %}
+                    <img src="{% static 'img/premium.png' %}" alt="premium" class="premium-img" />
+                    {% endif %}
+                  </span>
                   <a class="user_create_account" href="{% url 'logout' %}">Logout</a>
                 </div>
               {% else %}

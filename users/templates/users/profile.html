@@ -30,7 +30,11 @@ active_text
   {% include "users/partials/editProfile.html" %}
   <div class="top_line">
     <img src="{% static 'img/back.svg' %}" alt="back" class="back_button_profile" onclick="javascript:history.back();">
-    <span class="name__profile">{{ author.username }}</span>
+    <span class="name__profile">{{ author.username }}
+      {% if author.is_superuser %}
+        <img src="{% static 'img/premium.png' %}" alt="premium" class="premium-img" />
+      {% endif %}
+    </span>
   </div>
   <div class="profile_photo_background">
     <img src="{{ author.background.background.url }}" alt="profile_photo_background"
@@ -45,6 +49,9 @@ active_text
       <div class="about_profile_user-first-block">
         <div class="profile_user_name">
           {{ author.username }}
+          {% if author.is_superuser %}
+            <img src="{% static 'img/premium.png' %}" alt="premium" class="premium-img" />
+          {% endif %}
         </div>
         <div class="another_users-info">
           <div class="following" onclick="FollowingShow()">{{ author.following.count }} Following</div>
@@ -84,7 +91,11 @@ active_text
 
       <div class="about_user">
 
-        <a href="{{ post.userId.getUsernameProfile }}" class="nickname_post">{{post.userId}}</a>
+        <a href="{{ post.userId.getUsernameProfile }}" class="nickname_post">{{post.userId}}
+          {% if post.userId.is_superuser %}
+            <img src="{% static 'img/premium.png' %}" alt="premium" class="premium-img" />
+          {% endif %}
+        </a>
         <a href="{{ post.get_pk_for_delete }}" class="delete_post-link">
           <img id="delete_post" class="delete_post" src="{% static 'img/no.png' %}" alt="delete_post">
         </a>

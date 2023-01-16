@@ -20,7 +20,11 @@ Chat
     />
     {% endif %}
     <div class="title_chat_about_user">
-      <span class="title_chat_nickname">{{user.username}}</span>
+      <span class="title_chat_nickname">{{user.username}}
+        {% if user.is_superuser %}
+          <img src="{% static 'img/premium.png' %}" alt="premium" class="premium-img" />
+        {% endif %}
+      </span>
       {% if not user.is_online %}
       <span class="title_chat_last_time">У мережі {{ user.last_time_online|date:"H:i  D" }}</span>
       {% endif %}

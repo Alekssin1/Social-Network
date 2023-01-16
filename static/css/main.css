@@ -283,6 +283,11 @@
     margin-left: 13px;
 }
 
+.premium-img {
+    height: 20px;
+    width: 20px;
+}
+
 .error_message {
     position: fixed;
     width: auto;

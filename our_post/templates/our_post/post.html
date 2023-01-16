@@ -22,7 +22,11 @@ active_text
 
   <div class="top_line">
     <img src="{% static 'img/back.svg' %}" alt="back" class="back_button_profile" onclick="javascript:history.back();">
-    <span class="name__profile">{{ post.userId }}</span>
+    <span class="name__profile">{{ post.userId }}
+      {% if post.userId.is_superuser %}
+        <img src="{% static 'img/premium.png' %}" alt="premium" class="premium-img" />
+      {% endif %}
+    </span>
   </div>
 
   <div class="user_post">
@@ -35,7 +39,11 @@ active_text
     </a>
    
     <div class="about_user">
-      <a href="{{ post.userId.getUsernameProfile }}" class="nickname_post post_nick">{{post.userId}}</a>
+      <a href="{{ post.userId.getUsernameProfile }}" class="nickname_post post_nick">{{post.userId}}
+        {% if post.userId.is_superuser %}
+          <img src="{% static 'img/premium.png' %}" alt="premium" class="premium-img" />
+        {% endif %}
+      </a>
       <span class="post_subtitle post_text">
         {{post.message}}
       </span>
@@ -73,7 +81,11 @@ active_text
         </a>
         
           <div class="about_user">
-            <a href="{{ user.getUsernameProfile }}" class="nickname_post">{{user.username}}</a>
+            <a href="{{ user.getUsernameProfile }}" class="nickname_post">{{user.username}}
+              {% if user.is_superuser %}
+                <img src="{% static 'img/premium.png' %}" alt="premium" class="premium-img" />
+              {% endif %}
+            </a>
           </div>
       </div>                           
           <textarea class="post_input form-control" placeholder="Текст коментаря..." id="comment_input" type="text", rows="2"></textarea>                       
@@ -92,7 +104,11 @@ active_text
         </a>
         
           <div class="about_user chat_about_user">
-            <a href="{{ comment.userId.getUsernameProfile }}" class="nickname_post">{{comment.userId}}</a>
+            <a href="{{ comment.userId.getUsernameProfile }}" class="nickname_post">{{comment.userId}}
+              {% if comment.userId.is_superuser %}
+                <img src="{% static 'img/premium.png' %}" alt="premium" class="premium-img" />
+              {% endif %}
+            </a>
             <span class="comment_text post_subtitle">{{comment.commentText}}</span>
           </div>               
       </div>
