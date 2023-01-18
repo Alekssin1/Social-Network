@@ -128,6 +128,8 @@ active_text
 {{request.user.id|json_script:"json-comment-username"}}
 {{request.user.username|json_script:"json-comment-realusername"}}
 {{"/static/img/premium.png"|json_script:"json-img"}}
+{{"/static/img/no.png"|json_script:"json-img-no"}}
+{{"/post/delete/comment/"|json_script:"json-url_dell"}}
 <script src="{% static 'js/textarea.js' %}"></script>
 <script src="{% static 'js/comment.js' %}"></script>
 {% endblock %}

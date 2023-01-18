@@ -37,6 +37,8 @@ class CommentConsumer(AsyncWebsocketConsumer):
             user = self.get_username(usernames)
             avatar = await self.get_avatar(usernames)
             
+            id_comment = await self.get_comment_id(int(self.room_group_name))
+            
             # відправка даних в comment_message
             await self.channel_layer.group_send(
                 self.room_group_name,
@@ -48,6 +50,7 @@ class CommentConsumer(AsyncWebsocketConsumer):
                     'avatar': avatar.avatar.url,
                     'url': usernames.getUsernameProfile(),
                     'is_superuser': usernames.is_superuser,
+                    'id_comment': id_comment
                 }
             )
 
@@ -57,6 +60,7 @@ class CommentConsumer(AsyncWebsocketConsumer):
         avatar = event['avatar']
         url = event['url']
         is_superuser = event['is_superuser']
+        id_comment = event['id_comment']
 
         # відправка даних в json для подальшої роботи в js
         await self.send(text_data=json.dumps({
@@ -65,6 +69,7 @@ class CommentConsumer(AsyncWebsocketConsumer):
             'avatar': avatar,
             'url': url,
             'is_superuser': is_superuser,
+            'id_comment': id_comment,
         }))
 
     async def disconnect(self, code):
@@ -98,3 +103,7 @@ class CommentConsumer(AsyncWebsocketConsumer):
     @database_sync_to_async
     def get_avatar(self, obj):
         return getattr(obj, 'avatar')
+    
+    @database_sync_to_async
+    def get_comment_id(self, id):
+        return UserPost.objects.get(id=id).comments.last().pk

@@ -1,7 +1,9 @@
 var id = JSON.parse(document.getElementById('json-posts').textContent);
 const comment_username = JSON.parse(document.getElementById('json-comment-username').textContent);
 const comment_realusername = JSON.parse(document.getElementById('json-comment-realusername').textContent);
-const imgUrl = JSON.parse(document.getElementById('json-img').textContent)
+const imgUrl = JSON.parse(document.getElementById('json-img').textContent);
+const imgUrl_no = JSON.parse(document.getElementById('json-img-no').textContent);
+const url_dell = JSON.parse(document.getElementById('json-url_dell').textContent);
 
 // створюємо новий об'єкт вебсокету
 const socket = new WebSocket(
@@ -45,6 +47,7 @@ socket.onmessage = function (e) {
         if (data.is_superuser) {
             active_img = `<img src="${imgUrl}" alt="premium" class="premium-img" />`
         }
+        console.log(data.comment);
         
         // виводить коментарій
         document.querySelector('#comment_for_post').innerHTML += `<div class="user_post">
@@ -59,6 +62,9 @@ socket.onmessage = function (e) {
                     ${active_img}
                 </a>
                 <span class="comment_text post_subtitle">${data.comment}</span>
+                <a href="${url_dell+data.id_comment}" class="delete_comment-link">
+                    <img id="delete_comment" class="delete_comment" src="${imgUrl_no}" alt="delete_comment">
+                </a
               </div>               
           </div>`
     }
