@@ -80,9 +80,14 @@
               {% endif %}
           </div>
         </div>
+        
         <div></div>
+
+        {% include "partials/search.html" %}
+        
         {% block content%}
         {% endblock %}
+        
     </div>
     
 {% block scripts %}

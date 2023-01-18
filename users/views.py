@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from .forms import UserProfileForm, AvatarUserForm, BackgroundForm
-# from our_post.views import posts
+from django.db.models import Q
 from chats.models import ChatModel
 
 from users.forms import CustomUserCreationForm
@@ -81,4 +81,12 @@ def edit_profile(request, username):
                 else:
                     User.objects.filter(username=new_username).update(background=background)
         return HttpResponseRedirect(reverse(profile, args=[new_username]))
+    
             
+def search(request):
+    if request.method == "POST":
+        query = request.POST.get('q')
+        object_list = User.objects.filter(
+            Q(username__icontains=query)
+        )
+    return render( request, 'partials/search.html', context={'search_users':object_list})

@@ -7,6 +7,8 @@ urlpatterns = [
  #  сторінка реєстрації
  path("signup/", views.SignUp.as_view(), name="signup"),
  
+ path("search/", views.search, name="search"),
+ 
  path('edit/<str:username>/', views.edit_profile, name="edit_profile"),
  
  path("followToggle/<str:username>/",views.followToggle, name="followToggle"),

@@ -47,3 +47,6 @@ class User(AbstractUser):
     def getUsernameProfile(self):
         return reverse('profile', kwargs={'username': self.username})
     
+    def getSearchPage(self):
+        return reverse('search')
+    
