@@ -45,7 +45,9 @@ class CommentConsumer(AsyncWebsocketConsumer):
                     'comment': comment,
                     'username': user,
                     'timestamp': myTime,
-                    'avatar': avatar.avatar.url
+                    'avatar': avatar.avatar.url,
+                    'url': usernames.getUsernameProfile(),
+                    'is_superuser': usernames.is_superuser,
                 }
             )
 
@@ -53,12 +55,16 @@ class CommentConsumer(AsyncWebsocketConsumer):
         comment = event['comment']
         username = event['username']
         avatar = event['avatar']
+        url = event['url']
+        is_superuser = event['is_superuser']
 
         # відправка даних в json для подальшої роботи в js
         await self.send(text_data=json.dumps({
             'comment': comment,
             'username': username,
             'avatar': avatar,
+            'url': url,
+            'is_superuser': is_superuser,
         }))
 
     async def disconnect(self, code):

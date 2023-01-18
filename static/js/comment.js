@@ -1,6 +1,7 @@
 var id = JSON.parse(document.getElementById('json-posts').textContent);
 const comment_username = JSON.parse(document.getElementById('json-comment-username').textContent);
 const comment_realusername = JSON.parse(document.getElementById('json-comment-realusername').textContent);
+const imgUrl = JSON.parse(document.getElementById('json-img').textContent)
 
 // створюємо новий об'єкт вебсокету
 const socket = new WebSocket(
@@ -40,6 +41,11 @@ socket.onmessage = function (e) {
     
     // перевірка на пустий рядок
     if (data.message != "") {
+        active_img = ``;
+        if (data.is_superuser) {
+            active_img = `<img src="${imgUrl}" alt="premium" class="premium-img" />`
+        }
+        
         // виводить коментарій
         document.querySelector('#comment_for_post').innerHTML += `<div class="user_post">
             <img
@@ -48,7 +54,10 @@ socket.onmessage = function (e) {
               alt="avatar"
             />
               <div class="about_user">
-                <span class="nickname_post">${data.username}</span>
+                
+                <a href="${data.url}" class="nickname_post">${data.username}
+                    ${active_img}
+                </a>
                 <span class="comment_text post_subtitle">${data.comment}</span>
               </div>               
           </div>`
