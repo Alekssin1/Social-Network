@@ -140,6 +140,7 @@
     display: grid;
     grid-template-columns: 12% 88%;
     border-bottom: 1px #8E8E8E solid;
+    position: relative;
 }
 
 .image_post {
@@ -472,4 +473,12 @@
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
+}
+
+.delete_comment {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 0;
+    right: 20px;
 }

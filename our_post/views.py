@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from .forms import Post_form
-from our_post.models import UserPost
+from our_post.models import UserPost, PostComment
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .services import save_form_db
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from users.views import profile
 
@@ -48,4 +48,11 @@ def del_post(request, id_post):
     UserPost.objects.filter(id=id_post).delete()
     
     return HttpResponseRedirect(reverse(profile, args=[user.userId.username]))
+
+def del_comment(request, id_comment):    
+    comment = PostComment.objects.get(id=id_comment)
+    post = UserPost.objects.get(comments=comment)
+    comment.delete()
+
+    return HttpResponseRedirect(reverse(comments, args=[post.id]))
     

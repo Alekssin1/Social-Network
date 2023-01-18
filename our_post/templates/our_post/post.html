@@ -110,6 +110,11 @@ active_text
               {% endif %}
             </a>
             <span class="comment_text post_subtitle">{{comment.commentText}}</span>
+            {% if request.user == comment.userId or request.user.is_superuser %}
+            <a href="{{ comment.get_pk_for_delete }}" class="delete_comment-link">
+              <img id="delete_comment" class="delete_comment" src="{% static 'img/no.png' %}" alt="delete_comment">
+            </a>
+            {% endif %}
           </div>               
       </div>
 

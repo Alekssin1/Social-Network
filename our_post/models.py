@@ -36,3 +36,6 @@ class PostComment(models.Model):
     
     class Meta: 
         db_table = "post_comment"
+        
+    def get_pk_for_delete(self):
+        return reverse('delete_comment', kwargs={'id_comment': self.pk})
