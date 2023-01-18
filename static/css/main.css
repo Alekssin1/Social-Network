@@ -443,4 +443,32 @@
 
 .search_user-content .user {
     margin: 10px 0px;
+    padding: 10px 20px;
+    border-radius: 15px;
+}
+
+.search_user h1 {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 29px;
+    color: #F5F5F7;
+}
+
+.search_user input {
+    background: #2D2D2D;
+    color: #F5F5F7;
+    font-family: 'Montserrat';
+    font-weight: 400;
+    font-size: 18px;
+    border-radius: 10px;
+    border: none;
+    width: 100%;
+    padding: 5px 20px;
+    margin-top: 20px;
+    outline: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
 }
