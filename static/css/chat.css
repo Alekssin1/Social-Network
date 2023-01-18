@@ -50,6 +50,7 @@ body {
 .left_hover:hover {
     border-radius: 30px;
     background-color: #323232;
+    transition: all 0.3s ease;
     transition-delay: 0.1s;
     cursor: pointer;
 }
@@ -150,6 +151,7 @@ body {
     height: 72px;
     display: flex;
     align-items: center;
+    transition: all 0.3s ease;
 }
 
 .about_user {

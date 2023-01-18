@@ -445,6 +445,7 @@
     margin: 10px 0px;
     padding: 10px 20px;
     border-radius: 15px;
+    transition: all 0.3s ease;
 }
 
 .search_user h1 {
