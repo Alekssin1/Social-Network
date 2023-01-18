@@ -3,16 +3,21 @@ $(document).ready(function(){
 });
 
 function searchShow(){
-
-    if (document.getElementById("search-button-inp").style.display != "none") {
-        $("#search-button-inp").hide();
+    var inp = document.getElementById("search-button-inp");
+    if (document.getElementById("search-button-inp").style.visibility != "hidden") {
+        inp.style.top = '-100%';
+        document.getElementById("search-button-inp").style.visibility = "hidden";
     }
     else {
-        $("#search-button-inp").show();
+        inp.style.top = '0';
+        document.getElementById("search-button-inp").style.visibility = "inherit";
     }
-    
 }
 
 function searchHide(){
-    $("#search-button-inp").hide();
+    var inp = document.getElementById("search-button-inp");
+    inp.style.top = '-100%';
+    document.getElementById("search-button-inp").style.visibility = "hidden";
 }
+
+
