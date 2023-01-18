@@ -36,7 +36,7 @@
             <div class="left_side-img">
               <img class="search_pic" src="{% static 'img/Search.svg' %}" alt="search_left" />
             </div>
-            <span class="search_left_text text_left">Пошук</span>
+            <a onclick="searchShow()" style="text-decoration:none;"><span class="search_left_text text_left">Пошук</span></a>
           </div>
           <div class="notifications_in_left_menu left_menu_block left_hover">
             <div class="left_side-img">
@@ -93,10 +93,12 @@
 {% block scripts %}
 {% endblock %}
 </body>
+<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
 <script src="https://unpkg.com/htmx.org@1.6.0"></script>
 <script>
     document.body.addEventListener('htmx:configRequest', (e) => {
       e.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
       })
 </script>
+<script type="text/javascript" src="{% static 'js/search.js' %}"></script>
 </html>

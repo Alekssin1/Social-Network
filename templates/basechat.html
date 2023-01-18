@@ -40,7 +40,7 @@
           alt="search_left"
         />
       </div>
-      <span class="search_left_text text_left">Пошук</span>
+      <a onclick="searchShow()" style="text-decoration:none;"><span class="search_left_text text_left">Пошук</span></a>
     </div>
     <div class="notifications_in_left_menu left_menu_block left_hover">
       <div class="left_side-img">
@@ -121,6 +121,9 @@
     
     
   </div>
+
+  {% include "partials/search.html" %}
+
 {% block chat %}
 {% endblock %}
 </div>
@@ -129,6 +132,13 @@
 {% endblock %}
 <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
 <script type="text/javascript" src="{% static 'js/reload.js' %}"></script>
+<script src="https://unpkg.com/htmx.org@1.6.0"></script>
+<script>
+  document.body.addEventListener('htmx:configRequest', (e) => {
+    e.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    })
+</script>
+<script type="text/javascript" src="{% static 'js/search.js' %}"></script>
 <body>
 
 </body>
