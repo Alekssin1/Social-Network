@@ -424,7 +424,7 @@
 .search_user {
     position: fixed;
     left: 26.8%; 
-    transition: top .3s cubic-bezier(0, 0, 1, 1), visibility 0.3s;
+    transition: top .3s cubic-bezier(0, 0, 1, 1), visibility 0s;
     z-index: 102;
     top: 0;
 }
