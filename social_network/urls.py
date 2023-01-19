@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from chats.views import index, chatPage
-from our_post.views import comments, posts, like_post
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -38,5 +37,10 @@ urlpatterns = [
     # сторінка чату з користувачем
     path('<username>/', chatPage, name='chat'),
     
-    
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # значення для завантаження медіа файлів(картинок до посту)
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ]
