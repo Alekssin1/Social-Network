@@ -149,6 +149,8 @@
     max-height: 600px;
     overflow-y: auto;
     z-index: 101;
+    opacity: 1;
+    transition: opacity .3s cubic-bezier(0, 0, 1, 1), visibility 0s;
 }
 
 .user_form_edit {
@@ -162,6 +164,8 @@
     width: auto;
     min-width: 650px;
     z-index: 101;
+    opacity: 1;
+    transition: opacity .3s cubic-bezier(0, 0, 1, 1), visibility 0s;
 }
 
 .user_form_edit-label_username {
@@ -372,6 +376,7 @@ p {
 .user_in_form:hover {
     background: #48484846;
     border-radius: 10px;
+    transition: all 0.3s ease;
 }
 
 .d-b {
