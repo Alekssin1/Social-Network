@@ -54,14 +54,14 @@ active_text
           {% endif %}
         </div>
         <div class="another_users-info">
-          <div class="following" onclick="FollowingShow()">{{ author.following.count }} Followers</div>
-          <div class="followers" onclick="FollowedShow()">{{ author.followers.count }} Following</div>
+          <div class="following" onclick="FollowingShow()">{{ following.count }} Followers</div>
+          <div class="followers" onclick="FollowedShow()">{{ followers.count }} Following</div>
         </div>
       </div>
       <div class="edit_profile">
-        {% if user.is_authenticated %}
-        {% if user != author %}
-        {% if user in author.following.all %}
+        {% if request.user.is_authenticated %}
+        {% if request.user != author %}
+        {% if request.user in author.following.all %}
         <button class="edit_profile-button">
           <a class="edit_profile-link" href="{{ author.getPkFollowToggle }}">Unfollow</a>
         </button>

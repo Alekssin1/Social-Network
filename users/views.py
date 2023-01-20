@@ -25,7 +25,7 @@ class SignUp(CreateView):
     
     
 def profile(request, username):
-    userProfile = User.objects.get(username=username)
+    userProfile = User.objects.filter(username=username).select_related('avatar')[0]
     form = UserProfileForm()
     form_avatar = AvatarUserForm()
     form_background = BackgroundForm()
@@ -34,6 +34,8 @@ def profile(request, username):
         "form": form,
         "form_avatar": form_avatar,
         "form_background": form_background,
+        'following': userProfile.following.select_related('avatar'),
+        'followers': userProfile.followers.select_related('avatar'),
     }
     return render(request, "users/profile.html", data)
 

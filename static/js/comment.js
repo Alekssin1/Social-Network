@@ -47,7 +47,6 @@ socket.onmessage = function (e) {
         if (data.is_superuser) {
             active_img = `<img src="${imgUrl}" alt="premium" class="premium-img" />`
         }
-        console.log(data.comment);
         
         // виводить коментарій
         document.querySelector('#comment_for_post').innerHTML += `<div class="user_post">

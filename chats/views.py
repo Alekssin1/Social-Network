@@ -11,16 +11,16 @@ User = get_user_model()
 
 def index(request):
     #дістаєм об'єкти користувача з бази данних
-    users = User.objects.exclude(username=request.user.username)
+    users = User.objects.exclude(username=request.user.username).select_related('avatar')
     #рендерим головну сторінку чаму, передаючи параметром данні про користувача
     return render(request, 'chat\index.html', context={'users': users})
 
 @login_required(login_url="/profile/login/")
 def chatPage(request, username):
     #дістаєм об'єкти користувача з бази данних
-    user_obj = User.objects.get(username=username)
+    user_obj = User.objects.filter(username=username).select_related('avatar').first()
     #дістаєм об'єкти користувача з бази данних
-    users = User.objects.exclude(username=request.user.username)
+    users = User.objects.exclude(username=request.user.username).select_related('avatar')
     #дістаємо з бази данних повідомлення за цим полем
     message_objs = ChatModel.objects.filter(thread_name=set_name_group(request, user_obj))
     #рендеримо сторінку чату, передаючи параметрами користувачів та повідомлення

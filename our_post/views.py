@@ -11,7 +11,6 @@ from users.views import profile
 
 User = get_user_model()
 
-
 # Create your views here.
 def posts(request):
     # якщо спрацьовує метод POST значить відбулося відправлення форми з додавання посту
@@ -24,11 +23,13 @@ def posts(request):
             return HttpResponseRedirect(request.path)
     else:
 
-        return render(request, 'our_post\main.html', context={'form': Post_form(), 'posts': UserPost.objects.order_by("-id")})
+        return render(request, 'our_post\main.html', context={'form': Post_form(), 
+            'posts': UserPost.objects.order_by("-id").prefetch_related('likes', 'comments', 'content').select_related('userId'), 
+            "users": User.objects.all().select_related('avatar')})
 
 def like_post(request, id):
     if request.method == "POST":
-        instance = UserPost.objects.get(id=id)
+        instance = UserPost.objects.filter(id=id).select_related('userId').prefetch_related('likes', 'comments', 'content').first()
         if not instance.likes.filter(id=request.user.id).exists():
             instance.likes.add(request.user)
             instance.save() 
@@ -41,7 +42,9 @@ def like_post(request, id):
 
 @login_required(login_url="/profile/login/")
 def comments(request, post_id):
-    return render(request, 'our_post\post.html', context={'post': UserPost.objects.get(id=int(post_id))})
+    return render(request, 'our_post\post.html', 
+        context={'post': UserPost.objects.filter(id=int(post_id)).prefetch_related('comments').select_related('userId').first(),
+            "users": User.objects.all().select_related('avatar')})
 
 def del_post(request, id_post):
     user = UserPost.objects.get(id=id_post)
