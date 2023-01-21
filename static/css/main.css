@@ -524,6 +524,10 @@
 }
 
 @media (max-width: 1400px) {
+    .search_user-content{
+        width: 100%;
+    }
+    
     .profile_photo_background-photo {
         height: auto!important;
     }
@@ -708,7 +712,10 @@
     }
 
     .search_user {
-        left: 5%;
+        left: 0;
+        height: calc(100vh - 195px);
+        margin: 0px 5%;
+        width: 90%;
     }
 
     .search_user-content {
