@@ -81,25 +81,41 @@
     </div>
 
     <div class="user_create">
-      
-        {% if request.user.is_authenticated %}
-        <img src="{{ request.user.avatar.avatar.url }}" alt="avatar" class="avatar_on_page">
-          <div class="user_create-in-a">
-            <span class="user_create-name">{{ request.user.username }}
-              {% if request.user.is_superuser %}
-                <img src="{% static 'img/premium.png' %}" alt="premium" class="premium-img" />
-              {% endif %}
-            </span>
-            <a class="user_create_account" href="{% url 'logout' %}">Logout</a>
-          </div>
-        {% else %}
-        <img src="{% static 'default/avatar/dp.png' %}" alt="avatar" class="avatar_on_page">
-        <div class="user_create-in-a">
-          <a class="user_create_account-second" href="{% url 'signup' %}">Sign Up</a>
-          <a class="user_create_account-second" href="{% url 'login' %}">Login</a>
+            
+      {% if user.is_authenticated %}
+      <img src="{{ request.user.avatar.avatar.url }}" alt="avatar" class="avatar_on_page avatar_on_page-pc">
+      <div class="user_create-in-a .user_create-name-pc">
+        <span class="user_create-name user_create-name-pc">{{ user.username }} 
+          {% if user.is_superuser %}
+          <img src="{% static 'img/premium.png' %}" alt="premium" class="premium-img" />
+          {% endif %}
+        </span>
+        <a class="user_create_account user_create_account-pc" href="{% url 'logout' %}">Logout</a>
+      </div>
+
+      <img onclick="UserShow()" src="{{ request.user.avatar.avatar.url }}" alt="avatar" class="avatar_on_page avatar_on_page-mobile">
+      <div class="user_create-in-a user_create-in-a-mobile" id="user_create-in-a-mobile">
+        <span class="user_create-name user_create-name-mobile">{{ user.username }} 
+          {% if user.is_superuser %}
+          <img src="{% static 'img/premium.png' %}" alt="premium" class="premium-img premium-img-mobile" />
+          {% endif %}
+        </span>
+        <a class="user_create_account user_create_account-mobile" href="{% url 'logout' %}">Logout</a>
+      </div>
+      {% else %}
+      <img src="{% static 'default/avatar/dp.png' %}" alt="avatar" class="avatar_on_page avatar_on_page-pc">
+      <div class="user_create-in-a user_create-in-a-pc">
+        <a class="user_create_account-second" href="{% url 'signup' %}">Sign Up</a>
+        <a class="user_create_account-second" href="{% url 'login' %}">Login</a>
+      </div>
+
+      <img onclick="UserShow()" src="{% static 'default/avatar/dp.png' %}" alt="avatar" class="avatar_on_page avatar_on_page-mobile">
+        <div class="user_create-in-a user_create-in-a-mobile" id="user_create-in-a-mobile">
+          <a class="user_create_account-second user_create_account-second-mobile" href="{% url 'signup' %}">Sign Up</a>
+          <a class="user_create_account-second user_create_account-second-mobile" href="{% url 'login' %}">Login</a>
         </div>
-        {% endif %}
-    </div>
+      {% endif %}
+  </div>
   </div>
   <div></div>
   <div class="chat__users">
