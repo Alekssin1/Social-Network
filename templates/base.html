@@ -65,14 +65,14 @@
             
               {% if user.is_authenticated %}
               <img src="{{ request.user.avatar.avatar.url }}" alt="avatar" class="avatar_on_page avatar_on_page-pc">
-                <div class="user_create-in-a user_create-in-a-pc">
-                  <span class="user_create-name">{{ user.username }} 
-                    {% if user.is_superuser %}
-                    <img src="{% static 'img/premium.png' %}" alt="premium" class="premium-img" />
-                    {% endif %}
-                  </span>
-                  <a class="user_create_account" href="{% url 'logout' %}">Logout</a>
-                </div>
+              <div class="user_create-in-a .user_create-name-pc">
+                <span class="user_create-name user_create-name-pc">{{ user.username }} 
+                  {% if user.is_superuser %}
+                  <img src="{% static 'img/premium.png' %}" alt="premium" class="premium-img" />
+                  {% endif %}
+                </span>
+                <a class="user_create_account user_create_account-pc" href="{% url 'logout' %}">Logout</a>
+              </div>
 
               <img onclick="UserShow()" src="{{ request.user.avatar.avatar.url }}" alt="avatar" class="avatar_on_page avatar_on_page-mobile">
               <div class="user_create-in-a user_create-in-a-mobile" id="user_create-in-a-mobile">

@@ -507,7 +507,7 @@
     position: absolute;
     left: 0;
     margin: 0px;
-    transform: translate(-30%, 90%);
+    transform: translate(-30%, 10%);
 }
 
 @media (max-width: 1400px) {
@@ -547,8 +547,12 @@
         display: block;
     }
 
-    .user_create-in-a-pc, .avatar_on_page-pc {
+    .user_create-in-a-pc, .avatar_on_page-pc, .user_create-name-pc, .user_create_account-pc {
         display: none;
+    }
+
+    .user_create {
+        display: block;
     }
 
     .user_create {
@@ -576,4 +580,47 @@
     .search_user  {
         left: 22%;
        }
+}
+
+@media (max-width: 768px) {
+    .left_side_menu {
+        display: flex;
+        flex-direction: row;
+        bottom: 0;
+        width: 80%;
+        justify-content: space-between;
+        z-index: 999;
+        background-color: #1E1E1E;
+        padding: 5px 0px 0px 0px;
+        margin: 0px;
+    }
+
+    .left_side_menu-logo {
+        margin: 0px;
+    }
+
+    .main_page {
+        display: block;
+    }
+
+    .notification_pic, .search_pic, .home_pic, .message_pic, .profile_pic, .avatar_on_page-mobile, .avatar_on_page-mobile, .left_side_menu-logo img {
+        width: 27px!important;
+        height: 30px!important;
+    }
+
+    .left_menu_block  {
+        margin-bottom: 0px;
+    }
+
+    .user_create-in-a {
+        margin-left: 0px;
+    }
+
+    .left_menu_block, .user_create {
+        padding: 0px 5px!important;
+    }
+
+    .user_create {
+        display: flex;
+    }
 }
