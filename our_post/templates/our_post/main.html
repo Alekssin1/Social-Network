@@ -53,11 +53,11 @@ active_text
       alt="avatar" /></a>
     <div class="about_user">
     
-      <a href="{{ post.userId.getUsernameProfile }}" class="nickname_post">{{post.userId}}
+      <a href="{{ post.userId.getUsernameProfile }}" class="nickname_post"><span class="nickname_post-span">{{post.userId}}
         {% if post.userId.is_superuser %}
           <img src="{% static 'img/premium.png' %}" alt="premium" class="premium-img" />
         {% endif %}
-      </a>
+      </span></a>
  
       <span class="post_subtitle">
         {{post.message}}
