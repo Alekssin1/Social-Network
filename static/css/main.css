@@ -656,4 +656,21 @@
         left: auto;
         bottom: auto;
     }
+
+    .button_post {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0px;
+    }
+
+    .post_add p {
+        margin: 0px 0px 10px 0px;
+    }
+
+    .nickname_post {
+        display: flex;
+        align-items: center;
+    }
 }
