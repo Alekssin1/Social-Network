@@ -705,4 +705,13 @@
         width: 90%!important;
         height: auto!important;
     }
+
+    .search_user {
+        left: 5%;
+    }
+
+    .search_user-content {
+        /* width: 100vh; */
+        width: auto;
+    }
 }
