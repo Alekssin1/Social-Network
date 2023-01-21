@@ -6,7 +6,6 @@
 .post {
     border-left: 1px #8E8E8E solid;
     border-right: 1px #8E8E8E solid;
-    min-height: 100vh;
 }
 
 .post_input {
@@ -527,7 +526,7 @@
     .search_user-content{
         width: 100%;
     }
-    
+
     .profile_photo_background-photo {
         height: auto!important;
     }
@@ -729,5 +728,24 @@
 
     .another_users::-webkit-scrollbar {
         width: 4px;
+    }
+
+    .user_add_post {
+        display: grid;
+        grid-template-columns: 20% 80%;
+    }
+
+    .end_page {
+        margin-bottom: 50px;
+    }
+}
+
+@media (max-width: 300px) {
+   .user_post {
+        grid-template-columns: 25% 80%;
+    } 
+
+    .post_like, .post_comment, .post_time {
+        margin-right: 20px;
     }
 }
