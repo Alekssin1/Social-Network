@@ -524,6 +524,10 @@
 }
 
 @media (max-width: 1400px) {
+    .profile_photo_background-photo {
+        height: auto!important;
+    }
+
     .user_post {
         grid-template-columns: 12% 88%;
     }
@@ -672,5 +676,33 @@
     .nickname_post {
         display: flex;
         align-items: center;
+    }
+
+    .about_profile_user {
+        display: block!important;
+    }
+
+    .profile_page-body {
+        border-top: 1px #8e8e8e00 solid!important;
+    }
+
+    .edit_profile {
+        display: block!important;
+        margin-top: 15px!important;
+    }
+
+    .name__profile, .profile_user_name {
+        display: flex;
+        align-items: center;
+    }
+
+    .user_form, .user_form_edit {
+        min-width: auto!important;
+        width: 87%!important;
+    }
+
+    .id_background_show-photo {
+        width: 90%!important;
+        height: auto!important;
     }
 }
