@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from .services import save_form_db
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-from users.views import profile
+# from users.views import profile
 from django.views import View
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView
@@ -65,7 +65,7 @@ class Delete_post(DeleteView):
     def get(self, request, *args, **kwargs):
         user = UserPost.objects.get(id=self.kwargs.get('id_post'))
         UserPost.objects.filter(id=self.kwargs.get('id_post')).delete()
-        return HttpResponseRedirect(reverse(profile, args=[user.userId.username]))
+        return HttpResponseRedirect(reverse('profile', args=[user.userId.username]))
     
 class Delete_comment(DeleteView):
     pk_url_kwarg = 'id_comment'

@@ -9,9 +9,9 @@ urlpatterns = [
  
  path("search/", views.Search.as_view(), name="search"),
  
- path('edit/<str:username>/', views.edit_profile, name="edit_profile"),
+ path('edit/<str:username>/', views.Edit_profile.as_view(), name="edit_profile"),
  
- path("followToggle/<str:username>/",views.followToggle, name="followToggle"),
+ path("followToggle/<str:username>/",views.Follow_user.as_view(), name="followToggle"),
  
- path("<str:username>/", views.profile, name="profile"),
+ path("<str:username>/", views.Profile.as_view(), name="profile"),
 ]

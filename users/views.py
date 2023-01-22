@@ -26,66 +26,70 @@ class SignUp(CreateView):
     success_url = reverse_lazy("login")
     template_name = "registration/signup.html"
     
+class Profile(DetailView):
+    pk_url_kwarg = 'username'
     
-def profile(request, username):
-    userProfile = User.objects.filter(username=username).select_related('avatar')[0]
-    form = UserProfileForm()
-    form_avatar = AvatarUserForm()
-    form_background = BackgroundForm()
-    data = {
-        "author": userProfile,
-        "form": form,
-        "form_avatar": form_avatar,
-        "form_background": form_background,
-        'following': userProfile.following.select_related('avatar'),
-        'followers': userProfile.followers.select_related('avatar'),
-    }
-    return render(request, "users/profile.html", data)
+    def get(self, request, *args, **kwargs):
+        userProfile = User.objects.filter(username=self.kwargs.get("username")).select_related('avatar')[0]
+        form = UserProfileForm()
+        form_avatar = AvatarUserForm()
+        form_background = BackgroundForm()
+        data = {
+            "author": userProfile,
+            "form": form,
+            "form_avatar": form_avatar,
+            "form_background": form_background,
+            'following': userProfile.following.select_related('avatar'),
+            'followers': userProfile.followers.select_related('avatar'),
+        }
+        return render(request, "users/profile.html", data)    
     
-def followToggle(request, username):
-    authorObj = User.objects.get(username=username)
-    currentUserObj = User.objects.get(username=request.user.username)
-    following = authorObj.following.all()
-
-    if username != currentUserObj.username:
-        if currentUserObj in following:
-            authorObj.following.remove(currentUserObj.id)
-        else:
-            authorObj.following.add(currentUserObj.id)
-
-    return HttpResponseRedirect(reverse(profile, args=[authorObj.username]))
-
-def edit_profile(request, username):
-    if request.method == "POST":
+class Follow_user(DetailView):
+    pk_url_kwarg = 'username'
+    
+    def get(self, request, *args, **kwargs):
+        authorObj = User.objects.get(username=self.kwargs.get("username"))
+        currentUserObj = User.objects.get(username=request.user.username)
+        following = authorObj.following.all()   
+        if self.kwargs.get("username") != currentUserObj.username:
+            if currentUserObj in following:
+                authorObj.following.remove(currentUserObj.id)
+            else:
+                authorObj.following.add(currentUserObj.id)  
+        return HttpResponseRedirect(reverse('profile', args=[authorObj.username])) 
+        
+class Edit_profile(DetailView):
+    pk_url_kwarg = 'username'
+    
+    def post(self, request, *args, **kwargs):
         form = UserProfileForm(request.POST)
         form_avatar = AvatarUserForm(request.POST, request.FILES)
         form_background = BackgroundForm(request.POST, request.FILES)
-        new_username = username
+        new_username = self.kwargs.get("username")
         
         if form.is_valid():
             new_username = form.cleaned_data['username']
             if new_username:
-                if new_username == username: 
-                    User.objects.filter(username=username).update(username='')
+                if new_username == self.kwargs.get("username"): 
+                    User.objects.filter(username=self.kwargs.get("username")).update(username='')
                     User.objects.filter(username='').update(username=new_username)
                 else:
-                    User.objects.filter(username=username).update(username=new_username)
-                    ChatModel.objects.filter(sender=username).update(sender=new_username)
+                    User.objects.filter(username=self.kwargs.get("username")).update(username=new_username)
+                    ChatModel.objects.filter(sender=self.kwargs.get("username")).update(sender=new_username)
         if form_avatar.is_valid() and form_background.is_valid():
             if form_avatar.cleaned_data['avatar']:
                 avatar = form_avatar.save()
                 if new_username:
                     User.objects.filter(username=new_username).update(avatar=avatar)
                 else:
-                    User.objects.filter(username=username).update(avatar=avatar)
+                    User.objects.filter(username=self.kwargs.get("username")).update(avatar=avatar)
             if form_background.cleaned_data['background']:
                 background = form_background.save()
                 if new_username:
                     User.objects.filter(username=new_username).update(background=background)
                 else:
                     User.objects.filter(username=new_username).update(background=background)
-        return HttpResponseRedirect(reverse(profile, args=[new_username]))
-    
+        return HttpResponseRedirect(reverse('profile', args=[new_username]))
      
 class Search(ListView):
     template_name = "partials/search.html"  
