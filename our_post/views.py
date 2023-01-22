@@ -67,17 +67,12 @@ class Delete_post(DeleteView):
         UserPost.objects.filter(id=self.kwargs.get('id_post')).delete()
         return HttpResponseRedirect(reverse(profile, args=[user.userId.username]))
     
-
-def del_post(request, id_post):
-    user = UserPost.objects.get(id=id_post)
-    UserPost.objects.filter(id=id_post).delete()
+class Delete_comment(DeleteView):
+    pk_url_kwarg = 'id_comment'
     
-    return HttpResponseRedirect(reverse(profile, args=[user.userId.username]))
+    def get(self, request, *args, **kwargs):
+        comment = PostComment.objects.get(id=self.kwargs.get('id_comment'))
+        post = UserPost.objects.get(comments=comment)
+        comment.delete()
 
-def del_comment(request, id_comment):    
-    comment = PostComment.objects.get(id=id_comment)
-    post = UserPost.objects.get(comments=comment)
-    comment.delete()
-
-    return HttpResponseRedirect(reverse(comments, args=[post.id]))
-    
+        return HttpResponseRedirect(reverse('comments', args=[post.id])) 
