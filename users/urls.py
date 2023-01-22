@@ -2,12 +2,12 @@ from django.urls import path
 from . import views
 urlpatterns = [
  #  сторінка з можливостю реєстрації, виходу з облікового запису та створення облікового запису
- path('', views.home, name="home_home"),
+ path('', views.Home.as_view(), name="home_home"),
  
  #  сторінка реєстрації
  path("signup/", views.SignUp.as_view(), name="signup"),
  
- path("search/", views.search, name="search"),
+ path("search/", views.Search.as_view(), name="search"),
  
  path('edit/<str:username>/', views.edit_profile, name="edit_profile"),
  

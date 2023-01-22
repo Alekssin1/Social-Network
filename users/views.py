@@ -9,14 +9,16 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserProfileForm, AvatarUserForm, BackgroundForm
 from django.db.models import Q
 from chats.models import ChatModel
+from django.views.generic.base import TemplateView
+from django.views.generic.list import ListView
 
 from users.forms import CustomUserCreationForm
 
 User = get_user_model()
-# рендер сторінки з можливостю реєстрації, виходу з облікового запису та створення облікового запису
-def home(request):
-    return render(request, "users/home.html")
 
+class Home(TemplateView):
+    template_name = "users/home.html"
+    
 # відмалювання регістрації 
 class SignUp(CreateView):
     form_class = CustomUserCreationForm
@@ -84,11 +86,14 @@ def edit_profile(request, username):
                     User.objects.filter(username=new_username).update(background=background)
         return HttpResponseRedirect(reverse(profile, args=[new_username]))
     
-            
-def search(request):
-    if request.method == "POST":
-        query = request.POST.get('q')
+     
+class Search(ListView):
+    template_name = "partials/search.html"  
+    
+    def post(self, request, *args, **kwargs):
+        query = self.request.POST.get('q')
         object_list = User.objects.filter(
             Q(username__icontains=query)
-        )
-    return render( request, 'partials/search.html', context={'search_users':object_list})
+        ).select_related('avatar')
+        return render(request, self.template_name, {'search_users': object_list})
+    
