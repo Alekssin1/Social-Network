@@ -11,6 +11,7 @@ from django.db.models import Q
 from chats.models import ChatModel
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 
 from users.forms import CustomUserCreationForm
 
@@ -40,8 +41,7 @@ def profile(request, username):
         'followers': userProfile.followers.select_related('avatar'),
     }
     return render(request, "users/profile.html", data)
-
-
+    
 def followToggle(request, username):
     authorObj = User.objects.get(username=username)
     currentUserObj = User.objects.get(username=request.user.username)

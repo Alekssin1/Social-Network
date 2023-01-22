@@ -8,28 +8,29 @@ from .services import save_form_db
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from users.views import profile
+from django.views import View
+from django.views.generic.detail import DetailView
 
 User = get_user_model()
 
-# Create your views here.
-def posts(request):
-    # якщо спрацьовує метод POST значить відбулося відправлення форми з додавання посту
-    if request.method == "POST":
-        # зберігаю значення з форми в словник
-        post_form = Post_form(request.POST, request.FILES)
+class Post(View):
+    def post(self, request, *args, **kwargs):
+        post_form = Post_form(self.request.POST, self.request.FILES)
 
         if post_form.is_valid():
-            save_form_db("content", request, post_form)
-            return HttpResponseRedirect(request.path)
-    else:
-
+            save_form_db("content", self.request, post_form)
+            return HttpResponseRedirect(self.request.path)
+        
+    def get(self, request, *args, **kwargs):
         return render(request, 'our_post\main.html', context={'form': Post_form(), 
             'posts': UserPost.objects.order_by("-id").prefetch_related('likes', 'comments', 'content').select_related('userId'), 
             "users": User.objects.all().select_related('avatar')})
 
-def like_post(request, id):
-    if request.method == "POST":
-        instance = UserPost.objects.filter(id=id).select_related('userId').prefetch_related('likes', 'comments', 'content').first()
+class Like_post(DetailView):
+    pk_url_kwarg = 'id'
+    
+    def post(self, request, *args, **kwargs):
+        instance = UserPost.objects.filter(id=self.kwargs.get("id")).select_related('userId').prefetch_related('likes', 'comments', 'content').first()
         if not instance.likes.filter(id=request.user.id).exists():
             instance.likes.add(request.user)
             instance.save() 
@@ -38,7 +39,6 @@ def like_post(request, id):
             instance.likes.remove(request.user)
             instance.save() 
             return render( request, 'our_post/partials/like.html', context={'post':instance})
-
 
 @login_required(login_url="/profile/login/")
 def comments(request, post_id):
