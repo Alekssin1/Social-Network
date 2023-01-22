@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from chats.views import index, chatPage
+from chats.views import Base_chat, Chat_page
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     
     # сторінка початкового чату
-    path('', index, name='home'),
+    path('', Base_chat.as_view(), name='home'),
     
     # сторінка з можливістю зараєструватися, вийти з акаунту або стоворити його
     path('profile/', include('django.contrib.auth.urls')),
@@ -35,7 +35,7 @@ urlpatterns = [
     path('post/', include('our_post.urls')),
     
     # сторінка чату з користувачем
-    path('<username>/', chatPage, name='chat'),
+    path('<username>/', Chat_page.as_view(), name='chat'),
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # значення для завантаження медіа файлів(картинок до посту)
 
