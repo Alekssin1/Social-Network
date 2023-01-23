@@ -131,6 +131,7 @@
     padding: 0px 8%;
     padding-bottom: 20px;
     border-bottom: 1px #8E8E8E solid;
+    margin-bottom: 0px !important;
 }
 
 .post_subtitle {
@@ -616,6 +617,10 @@
 }
 
 @media (max-width: 768px) {
+    .title_chat_status {
+        margin-left: 24px;
+    }
+
     .left_side_menu {
         display: flex;
         flex-direction: row;

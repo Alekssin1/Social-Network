@@ -232,7 +232,7 @@ body {
     height: 9px;
     position: absolute;
     margin-left: 39px;
-    margin-top: 8px;
+    margin-top: -9px;
 }
 
 .chat__chat {

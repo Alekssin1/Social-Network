@@ -13,17 +13,19 @@ Chat
 <div class="chat__chat">
   <div class="title_chat" id="title_chat-id">
     <img src="/static/img/back.svg" alt="back" class="back_button_profile" onclick="javascript:history.back();">
-    <img
-      class="title_chat_avatar"
-      src="{{ user.avatar.avatar.url }}"
-      alt="avatar"
-    />
-    {% if user.is_online %}
-    <img
-      class="title_chat_status"
-      src="{% static 'img/Ellipse 3.png' %}"
-    />
-    {% endif %}
+    <div class="avatar_status">
+      <img
+        class="title_chat_avatar"
+        src="{{ user.avatar.avatar.url }}"
+        alt="avatar"
+      />
+      {% if user.is_online %}
+      <img
+        class="title_chat_status"
+        src="{% static 'img/Ellipse 3.png' %}"
+      />
+      {% endif %}
+  </div>
     <div class="title_chat_about_user">
       <span class="title_chat_nickname">{{user.username}}
         {% if user.is_superuser %}

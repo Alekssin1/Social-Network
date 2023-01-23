@@ -69,13 +69,14 @@ class Edit_profile(DetailView):
         
         if form.is_valid():
             new_username = form.cleaned_data['username']
-            if new_username:
-                if new_username == self.kwargs.get("username"): 
-                    User.objects.filter(username=self.kwargs.get("username")).update(username='')
-                    User.objects.filter(username='').update(username=new_username)
-                else:
-                    User.objects.filter(username=self.kwargs.get("username")).update(username=new_username)
-                    ChatModel.objects.filter(sender=self.kwargs.get("username")).update(sender=new_username)
+            if new_username == self.kwargs.get("username") or not new_username: 
+                User.objects.filter(username=self.kwargs.get("username")).update(username='')
+                User.objects.filter(username='').update(username=self.kwargs.get("username"))
+                new_username = self.kwargs.get("username")
+            else:
+                User.objects.filter(username=self.kwargs.get("username")).update(username=new_username)
+                ChatModel.objects.filter(sender=self.kwargs.get("username")).update(sender=new_username)
+                
         if form_avatar.is_valid() and form_background.is_valid():
             if form_avatar.cleaned_data['avatar']:
                 avatar = form_avatar.save()
