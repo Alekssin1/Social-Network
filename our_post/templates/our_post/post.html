@@ -96,15 +96,12 @@ active_text
     </div>
     <div id="comment_for_post">
       {% load our_post_tags %}
-      {% getAllComments as all_comment %}
       {% for comment in post.comments.all %}
-      {% for this_comment in all_comment %}
-      {% if this_comment ==  comment%}
       <div class="user_post">
         <a href="{{ this_comment.userId.getUsernameProfile }}" class="user_avatar-link">
           <img
           class="avatar online"
-          src="{% for user in users %} {% if this_comment.userId == user %} {{user.avatar.avatar.url}} {% endif %} {% endfor %}"
+          src="{{user.avatar.avatar.url}}"
           alt="avatar"
         />
         </a>
@@ -123,8 +120,6 @@ active_text
             {% endif %}
           </div>               
       </div>
-      {% endif %}
-      {% endfor %}
       {% endfor %}
     </div>
 </div>

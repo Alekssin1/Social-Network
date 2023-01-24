@@ -16,9 +16,6 @@ from django.views.generic.detail import DetailView
 from users.forms import CustomUserCreationForm
 
 User = get_user_model()
-
-class Home(TemplateView):
-    template_name = "users/home.html"
     
 # відмалювання регістрації 
 class SignUp(CreateView):

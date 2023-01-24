@@ -49,7 +49,7 @@ active_text
   </div>
   {% for post in posts %}
   <div class="user_post">
-    <a href="{{ post.userId.getUsernameProfile }}" class="user_avatar-link"><img class="avatar online" src="{% for user in users %} {% if post.userId == user %} {{user.avatar.avatar.url}} {% endif %} {% endfor %}"
+    <a href="{{ post.userId.getUsernameProfile }}" class="user_avatar-link"><img class="avatar online" src="{{user.avatar.avatar.url}}"
       alt="avatar" /></a>
     <div class="about_user">
     
@@ -68,19 +68,14 @@ active_text
       </div>
       {% endfor%}
       <div class="about_post">
-
-        
         <div class="post_like">
           {% include "our_post/partials/like.html" %}
         </div>
 
-
         <div class="post_comment">
           <a href="{{ post.get_absolute_url }}" class="nickname"><img
               src="{% static 'img/lenta/comment.svg'%}" class="post_comment-img" /></a>
-          
           <span>{{ post.comments.count }}</span>
-          
         </div>
         <div class="post_time">
           <span>{{ post.createdAt|date:"M d" }}</span>

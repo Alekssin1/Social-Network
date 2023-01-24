@@ -1,9 +1,6 @@
 from django.urls import path
 from . import views
-urlpatterns = [
- #  сторінка з можливостю реєстрації, виходу з облікового запису та створення облікового запису
- path('', views.Home.as_view(), name="home_home"),
- 
+urlpatterns = [ 
  #  сторінка реєстрації
  path("signup/", views.SignUp.as_view(), name="signup"),
  

@@ -33,7 +33,7 @@ class Like_post(DetailView):
     pk_url_kwarg = 'id'
     
     def post(self, request, *args, **kwargs):
-        instance = UserPost.objects.filter(id=self.kwargs.get("id")).select_related('userId').prefetch_related('likes', 'comments', 'content').first()
+        instance = UserPost.objects.filter(id=self.kwargs.get("id")).select_related('userId').prefetch_related('likes', 'comments', 'content', 'comments__userId__avatar').first()
         if not instance.likes.filter(id=request.user.id).exists():
             instance.likes.add(request.user)
             instance.save() 
@@ -51,7 +51,7 @@ class Comments(LoginRequiredMixin, DetailView):
     login_url = reverse_lazy('login')
     
     def get_object(self, queryset=None):
-        return UserPost.objects.filter(id=int(self.kwargs.get("post_id"))).prefetch_related('comments').select_related('userId').first()
+        return UserPost.objects.filter(id=int(self.kwargs.get("post_id"))).prefetch_related('comments', 'comments__userId__avatar').select_related('userId').first()
         
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
