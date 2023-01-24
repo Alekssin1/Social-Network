@@ -98,22 +98,22 @@ active_text
       {% load our_post_tags %}
       {% for comment in post.comments.all %}
       <div class="user_post">
-        <a href="{{ this_comment.userId.getUsernameProfile }}" class="user_avatar-link">
+        <a href="{{ comment.userId.getUsernameProfile }}" class="user_avatar-link">
           <img
           class="avatar online"
-          src="{{user.avatar.avatar.url}}"
+          src="{{comment.userId.avatar.avatar.url}}"
           alt="avatar"
         />
         </a>
         
           <div class="about_user chat_about_user">
-            <a href="{{ this_comment.userId.getUsernameProfile }}" class="nickname_post">{{this_comment.userId}}
-              {% if this_comment.userId.is_superuser %}
+            <a href="{{ comment.userId.getUsernameProfile }}" class="nickname_post">{{comment.userId}}
+              {% if comment.userId.is_superuser %}
                 <img src="{% static 'img/premium.png' %}" alt="premium" class="premium-img" />
               {% endif %}
             </a>
             <span class="comment_text post_subtitle">{{comment.commentText}}</span>
-            {% if request.user == this_comment.userId or request.user.is_superuser or post.userId == request.user %}
+            {% if request.user == comment.userId or request.user.is_superuser or post.userId == request.user %}
             <a href="{{ comment.get_pk_for_delete }}" class="delete_comment-link">
               <img id="delete_comment" class="delete_comment" src="{% static 'img/no.png' %}" alt="delete_comment">
             </a>

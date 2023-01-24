@@ -1,13 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from .forms import Post_form
 from our_post.models import UserPost, PostComment
 from django.http import HttpResponseRedirect
-from django.contrib.auth.decorators import login_required
 from .services import save_form_db
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.urls import reverse
-# from users.views import profile
 from django.views import View
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView
@@ -25,15 +23,17 @@ class Post(View):
             return HttpResponseRedirect(self.request.path)
         
     def get(self, request, *args, **kwargs):
-        return render(request, 'our_post\main.html', context={'form': Post_form(), 
-            'posts': UserPost.objects.order_by("-id").prefetch_related('likes', 'comments', 'content').select_related('userId'), 
-            "users": User.objects.all().select_related('avatar')})
+        return render(request, 'our_post\main.html', context={'form': Post_form(),
+            'posts': UserPost.objects.order_by("-id").prefetch_related('likes', 'comments', 'content').select_related('userId', 'userId__avatar')\
+                .only('userId', 'userId__username', 'userId__avatar__avatar', 'message', 'content', 'createdAt', 'comments', 'likes', 'userId__is_superuser'), 
+            "users": User.objects.all().select_related('avatar').only('avatar__avatar')})
 
 class Like_post(DetailView):
     pk_url_kwarg = 'id'
     
     def post(self, request, *args, **kwargs):
-        instance = UserPost.objects.filter(id=self.kwargs.get("id")).select_related('userId').prefetch_related('likes', 'comments', 'content', 'comments__userId__avatar').first()
+        instance = UserPost.objects.filter(id=self.kwargs.get("id")).select_related('userId').prefetch_related('likes', 'comments', 'content', 'comments__userId__avatar')\
+            .only('userId', 'userId__username', 'userId__avatar__avatar', 'message', 'content', 'createdAt', 'comments', 'likes', 'userId__is_superuser').first()
         if not instance.likes.filter(id=request.user.id).exists():
             instance.likes.add(request.user)
             instance.save() 
@@ -51,11 +51,13 @@ class Comments(LoginRequiredMixin, DetailView):
     login_url = reverse_lazy('login')
     
     def get_object(self, queryset=None):
-        return UserPost.objects.filter(id=int(self.kwargs.get("post_id"))).prefetch_related('comments', 'comments__userId__avatar').select_related('userId').first()
+        return UserPost.objects.filter(id=int(self.kwargs.get("post_id")))\
+            .prefetch_related('comments', 'comments__userId__avatar').select_related('userId')\
+            .only('userId__is_superuser', 'userId__id', 'userId', 'userId__username', 'message', 'content', 'comments', 'createdAt', 'id').first()
         
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['users'] = User.objects.all().select_related('avatar')
+        context['users'] = User.objects.all().select_related('avatar').only('username', 'is_superuser', 'avatar__avatar')
         return context
     
 class Delete_post(DeleteView):
