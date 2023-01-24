@@ -66,8 +66,8 @@
               {% if user.is_authenticated %}
               <img src="{{ request.user.avatar.avatar.url }}" alt="avatar" class="avatar_on_page avatar_on_page-pc">
               <div class="user_create-in-a .user_create-name-pc">
-                <span class="user_create-name user_create-name-pc">{{ user.username }} 
-                  {% if user.is_superuser %}
+                <span class="user_create-name user_create-name-pc">{{ request.user.username }} 
+                  {% if request.user.is_superuser %}
                   <img src="{% static 'img/premium.png' %}" alt="premium" class="premium-img" />
                   {% endif %}
                 </span>
@@ -76,8 +76,8 @@
 
               <img onclick="UserShow()" src="{{ request.user.avatar.avatar.url }}" alt="avatar" class="avatar_on_page avatar_on_page-mobile">
               <div class="user_create-in-a user_create-in-a-mobile" id="user_create-in-a-mobile">
-                <span class="user_create-name user_create-name-mobile">{{ user.username }} 
-                  {% if user.is_superuser %}
+                <span class="user_create-name user_create-name-mobile">{{ request.user.username }} 
+                  {% if request.user.is_superuser %}
                   <img src="{% static 'img/premium.png' %}" alt="premium" class="premium-img premium-img-mobile" />
                   {% endif %}
                 </span>
