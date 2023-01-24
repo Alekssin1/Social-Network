@@ -75,16 +75,10 @@ class Edit_profile(DetailView):
         if form_avatar.is_valid() and form_background.is_valid():
             if form_avatar.cleaned_data['avatar']:
                 avatar = form_avatar.save()
-                if new_username:
-                    User.objects.filter(username=new_username).update(avatar=avatar)
-                else:
-                    User.objects.filter(username=self.kwargs.get("username")).update(avatar=avatar)
+                User.objects.filter(username=new_username).update(avatar=avatar)
             if form_background.cleaned_data['background']:
                 background = form_background.save()
-                if new_username:
-                    User.objects.filter(username=new_username).update(background=background)
-                else:
-                    User.objects.filter(username=new_username).update(background=background)
+                User.objects.filter(username=new_username).update(background=background)
         return HttpResponseRedirect(reverse('profile', args=[new_username]))
      
 class Search(ListView):
