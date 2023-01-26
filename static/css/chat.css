@@ -190,7 +190,6 @@ body {
     justify-content: start;
     align-items: center;
     height: 60px;
-    cursor: pointer;
     border-bottom: 1px #8E8E8E solid;
 }
 
@@ -444,4 +443,9 @@ audio::-webkit-media-controls-time-remaining-display {
     display: flex;
     flex-direction: row;
     align-items: flex-end;
+}
+
+.title_chat_about_user:hover {
+    opacity: 70%;
+    transition: opacity 0.3s ease;
 }
