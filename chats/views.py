@@ -9,10 +9,11 @@ from django.urls import reverse_lazy
 
 User = get_user_model()
 
-class Base_chat(ListView):
+class Base_chat(LoginRequiredMixin, ListView):
     model = User
     template_name = 'chat\index.html'
     context_object_name = 'users'
+    login_url = reverse_lazy('login')
     
     def get_queryset(self):
         return User.objects.exclude(username=self.request.user.username).select_related('avatar')\
