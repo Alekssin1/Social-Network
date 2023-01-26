@@ -23,10 +23,16 @@ class Post(View):
             return HttpResponseRedirect(self.request.path)
         
     def get(self, request, *args, **kwargs):
+        userProfile = User.objects.filter(username=self.request.user.username).select_related('avatar')[0]
+        followers = userProfile.followers.select_related('avatar')
+        # followers |= UserPost.objects.filter(userId=userProfile)
+
         return render(request, 'our_post\main.html', context={'form': Post_form(),
             'posts': UserPost.objects.order_by("-id").prefetch_related('likes', 'comments', 'content').select_related('userId', 'userId__avatar')\
                 .only('userId', 'userId__username', 'userId__avatar__avatar', 'message', 'content', 'createdAt', 'comments', 'likes', 'userId__is_superuser'), 
-            "users": User.objects.all().select_related('avatar').only('avatar__avatar')})
+            "users": User.objects.all().select_related('avatar').only('avatar__avatar'), "posts_following": UserPost.objects.filter(userId__in=followers).order_by("-id").prefetch_related('likes', 'comments', 'content').select_related('userId', 'userId__avatar')\
+                .only('userId', 'userId__username', 'userId__avatar__avatar', 'message', 'content', 'createdAt', 'comments', 'likes', 'userId__is_superuser')|UserPost.objects.filter(userId=userProfile).order_by("-id").prefetch_related('likes', 'comments', 'content').select_related('userId', 'userId__avatar')\
+                .only('userId', 'userId__username', 'userId__avatar__avatar', 'message', 'content', 'createdAt', 'comments', 'likes', 'userId__is_superuser') })
 
 class Like_post(DetailView):
     pk_url_kwarg = 'id'
