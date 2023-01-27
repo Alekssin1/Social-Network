@@ -1,3 +1,5 @@
+"""This is a module with functions removed from the view file"""
+
 from our_post.models import Photo
 
 
