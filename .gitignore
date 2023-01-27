@@ -2,3 +2,4 @@
 venv
 /uploads
 .idea
+db.sqlite3
