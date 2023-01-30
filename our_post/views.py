@@ -26,24 +26,26 @@ class Post(View):
             return HttpResponseRedirect(self.request.path)
 
     def get(self, request):
-        user_profile = User.objects.filter(
-            username=self.request.user.username).select_related('avatar')[0]
-        followers = user_profile.followers.select_related('avatar')
-
-        return render(request, r'our_post\main.html', context={'form': PostForm(),
-                                                               'posts': UserPost.objects.order_by("-id").prefetch_related(
+        context = {'form': PostForm(),
+                   'posts': UserPost.objects.order_by("-id").prefetch_related(
             'likes', 'comments', 'content').select_related('userId', 'userId__avatar').only(
             'userId', 'userId__username', 'userId__avatar__avatar', 'message', 'content',
                 'createdAt', 'comments', 'likes', 'userId__is_superuser'),
-            "users": User.objects.all().select_related('avatar').only('avatar__avatar'),
-            "posts_following": UserPost.objects.filter(userId__in=followers).order_by("-id").prefetch_related(
+            "users": User.objects.all().select_related('avatar').only('avatar__avatar')}
+
+        if self.request.user.username:
+            user_profile = User.objects.filter(
+                username=self.request.user.username).select_related('avatar')[0]
+            followers = user_profile.followers.select_related('avatar')
+            context['posts_following'] = UserPost.objects.filter(userId__in=followers).order_by("-id").prefetch_related(
                 'likes', 'comments', 'content').select_related('userId', 'userId__avatar').only(
                 'userId', 'userId__username', 'userId__avatar__avatar', 'message', 'content',
                 'createdAt', 'comments', 'likes', 'userId__is_superuser') | UserPost.objects.filter(
                 userId=user_profile).order_by("-id").prefetch_related(
                 'likes', 'comments', 'content').select_related('userId', 'userId__avatar').only(
-                    'userId', 'userId__username', 'userId__avatar__avatar', 'message', 'content',
-                    'createdAt', 'comments', 'likes', 'userId__is_superuser')})
+                'userId', 'userId__username', 'userId__avatar__avatar', 'message', 'content',
+                'createdAt', 'comments', 'likes', 'userId__is_superuser')
+        return render(request, r'our_post\main.html', context=context)
 
 
 class LikePost(DetailView):
@@ -54,9 +56,9 @@ class LikePost(DetailView):
     def post(self, request, *args, **kwargs):
         instance = UserPost.objects.filter(id=self.kwargs.get("id")).select_related(
             'userId').prefetch_related('likes', 'comments', 'content',
-            'comments__userId__avatar').only('userId', 'userId__username',
-            'userId__avatar__avatar', 'message', 'content', 'createdAt', 'comments',
-            'likes', 'userId__is_superuser').first()
+                                       'comments__userId__avatar').only('userId', 'userId__username',
+                                                                        'userId__avatar__avatar', 'message', 'content', 'createdAt', 'comments',
+                                                                        'likes', 'userId__is_superuser').first()
 
         if not instance.likes.filter(id=request.user.id).exists():
             instance.likes.add(request.user)
