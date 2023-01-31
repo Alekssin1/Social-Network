@@ -18,7 +18,7 @@ User = get_user_model()
 class Post(View):
     """Class describing the view of the page with posts"""
 
-    def post(self) -> (HttpResponseRedirect | None):
+    def post(self, request) -> (HttpResponseRedirect | None):
         post_form = PostForm(self.request.POST, self.request.FILES)
 
         if post_form.is_valid():
@@ -45,7 +45,7 @@ class Post(View):
                 'likes', 'comments', 'content').select_related('userId', 'userId__avatar').only(
                 'userId', 'userId__username', 'userId__avatar__avatar', 'message', 'content',
                 'createdAt', 'comments', 'likes', 'userId__is_superuser')
-        return render(request, r'our_post\main.html', context=context)
+        return render(request, r'our_post/main.html', context=context)
 
 
 class LikePost(DetailView):
