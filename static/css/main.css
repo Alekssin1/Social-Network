@@ -43,7 +43,7 @@
     font-weight: 600;
     font-size: 24px;
     line-height: 29px;
-    width:min-content;
+    width: min-content;
 }
 
 .nickname_post-span {
@@ -51,7 +51,10 @@
     align-items: center;
 }
 
-.user_avatar-link, .user_avatar-link:hover, .nickname_post, .nickname_post:hover {
+.user_avatar-link,
+.user_avatar-link:hover,
+.nickname_post,
+.nickname_post:hover {
     text-decoration: none;
     color: #F5F5F7;
 }
@@ -105,7 +108,7 @@
     line-height: 29px;
 
     max-height: 51px;
-    margin-top: 20px!important;
+    margin-top: 20px !important;
 
     margin-left: auto;
     margin-right: 8%;
@@ -220,6 +223,7 @@
     height: 72px;
     display: flex;
     align-items: center;
+    margin-left: 21px;
 }
 
 .like_number {
@@ -349,7 +353,7 @@
     line-height: 30px;
 }
 
-.comment_text{
+.comment_text {
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 400;
@@ -364,7 +368,7 @@
 }
 
 .user_create {
-    padding: 10px 20px!important;
+    padding: 10px 20px !important;
     display: flex;
     align-items: center;
 }
@@ -381,10 +385,12 @@
     line-height: 30px;
 }
 
-.user_create_account, .user_create_account:hover {
+.user_create_account,
+.user_create_account:hover {
     text-decoration: none;
     color: #6d7075;
-} 
+}
+
 .user_create_account {
     font-family: 'Montserrat';
     font-style: normal;
@@ -393,7 +399,8 @@
     color: #6d7075;
 }
 
-.user_create_account-second, .user_create_account-second:hover {
+.user_create_account-second,
+.user_create_account-second:hover {
     text-decoration: none;
     color: #F5F5F7;
 }
@@ -435,7 +442,7 @@
 
 .search_user {
     position: fixed;
-    left: 26.8%; 
+    left: 26.8%;
     transition: top .3s cubic-bezier(0, 0, 1, 1), visibility 0s;
     z-index: 102;
     top: 0;
@@ -482,9 +489,9 @@
     padding: 5px 20px;
     margin-top: 20px;
     outline: none;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 .delete_comment {
@@ -523,29 +530,30 @@
     transform: translate(-30%, 10%);
 }
 
-.nickname_post  {
+.nickname_post {
     display: flex;
     align-items: center;
 }
 
 @media (max-width: 1400px) {
-    .search_user-content{
+    .search_user-content {
         width: 100%;
     }
 
     .profile_photo_background-photo {
-        height: auto!important;
+        height: auto !important;
     }
 
     .user_post {
         grid-template-columns: 12% 88%;
     }
 
-   .search_user  {
-    left: 18%;
-   }
+    .search_user {
+        left: 18%;
+    }
+
     .text_left {
-        display:none;
+        display: none;
     }
 
     .left_side-img {
@@ -573,11 +581,15 @@
         width: 10%;
     }
 
-    .avatar_on_page-mobile, .user_create-in-a-mobile {
+    .avatar_on_page-mobile,
+    .user_create-in-a-mobile {
         display: block;
     }
 
-    .user_create-in-a-pc, .avatar_on_page-pc, .user_create-name-pc, .user_create_account-pc {
+    .user_create-in-a-pc,
+    .avatar_on_page-pc,
+    .user_create-name-pc,
+    .user_create_account-pc {
         display: none;
     }
 
@@ -586,14 +598,15 @@
     }
 
     .user_create {
-        padding: 5px 10px!important;
+        padding: 5px 10px !important;
     }
 
     .avatar_on_page-mobile {
         cursor: pointer;
     }
 
-    .avatar_on_page-pc, .user_create-in-a-pc {
+    .avatar_on_page-pc,
+    .user_create-in-a-pc {
         display: none;
     }
 }
@@ -611,9 +624,9 @@
         grid-template-columns: 15% 33% 52%;
     }
 
-    .search_user  {
+    .search_user {
         left: 22%;
-       }
+    }
 }
 
 @media (max-width: 768px) {
@@ -642,12 +655,19 @@
         display: block;
     }
 
-    .notification_pic, .search_pic, .home_pic, .message_pic, .profile_pic, .avatar_on_page-mobile, .avatar_on_page-mobile, .left_side_menu-logo img {
-        width: 27px!important;
-        height: 30px!important;
+    .notification_pic,
+    .search_pic,
+    .home_pic,
+    .message_pic,
+    .profile_pic,
+    .avatar_on_page-mobile,
+    .avatar_on_page-mobile,
+    .left_side_menu-logo img {
+        width: 27px !important;
+        height: 30px !important;
     }
 
-    .left_menu_block  {
+    .left_menu_block {
         margin-bottom: 0px;
     }
 
@@ -655,8 +675,9 @@
         margin-left: 0px;
     }
 
-    .left_menu_block, .user_create {
-        padding: 0px 5px!important;
+    .left_menu_block,
+    .user_create {
+        padding: 0px 5px !important;
     }
 
     .user_create {
@@ -664,8 +685,8 @@
     }
 
     body {
-        padding-left: 5%!important;
-        padding-right: 5%!important;
+        padding-left: 5% !important;
+        padding-right: 5% !important;
     }
 
     .user_create-in-a-mobile {
@@ -693,31 +714,33 @@
     }
 
     .about_profile_user {
-        display: block!important;
+        display: block !important;
     }
 
     .profile_page-body {
-        border-top: 1px #8e8e8e00 solid!important;
+        border-top: 1px #8e8e8e00 solid !important;
     }
 
     .edit_profile {
-        display: block!important;
-        margin-top: 15px!important;
+        display: block !important;
+        margin-top: 15px !important;
     }
 
-    .name__profile, .profile_user_name {
+    .name__profile,
+    .profile_user_name {
         display: flex;
         align-items: center;
     }
 
-    .user_form, .user_form_edit {
-        min-width: auto!important;
-        width: 87%!important;
+    .user_form,
+    .user_form_edit {
+        min-width: auto !important;
+        width: 87% !important;
     }
 
     .id_background_show-photo {
-        width: 90%!important;
-        height: auto!important;
+        width: 90% !important;
+        height: auto !important;
     }
 
     .search_user {
@@ -751,11 +774,13 @@
 }
 
 @media (max-width: 300px) {
-   .user_post {
+    .user_post {
         grid-template-columns: 25% 80%;
-    } 
+    }
 
-    .post_like, .post_comment, .post_time {
+    .post_like,
+    .post_comment,
+    .post_time {
         margin-right: 20px;
     }
 }

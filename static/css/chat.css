@@ -141,6 +141,13 @@ body {
     margin-left: 21px;
 }
 
+.avatar_comments {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    border-radius: 28px;
+}
+
 .status {
     position: absolute;
     margin-left: 55px;
