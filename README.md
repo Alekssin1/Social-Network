@@ -11,24 +11,24 @@ HOST=<span style="color:#73b33b">YOUR_HOST</span> *(database)*
 PORT=<span style="color:#73b33b">YOUR_PORT</span> *(database)*    
 
 Щоб запустити проєкт необхідно включити сервер з базою даних(MySQL) прописати наступні команди в корені директорії Social-Network:  
-```
 Step 1:
+```
 git clone https://github.com/Alekssin1/Social-Network.git
 ```
-```
 Step 2 "Installing all project dependencies":
+```
 pip install -r requirements.txt  
 ```  
-```  
 Step 3:
+```  
 python manage.py makemigrations  
 ```  
-```  
 Step 4 "Database creating":
+```  
 python manage.py migrate  
 ```  
-```  
 Step 5 "Start project":
+```  
 python manage.py runserver
 ```  
 ___
