@@ -47,7 +47,7 @@ active_text
   {%endif%}
   <div class="error_message" id="error">
   </div>
-  {% if request.user.is_authentificated %}
+  {% if not request.user.is_authentificated %}
   {% for post in posts %}
   
   <div class="user_post">

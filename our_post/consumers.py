@@ -1,13 +1,17 @@
 import json
+from datetime import datetime
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
-from our_post.models import PostComment, UserPost
 from django.contrib.auth import get_user_model
-from datetime import datetime
+
+from our_post.models import PostComment, UserPost
 
 User = get_user_model()
 
+
 class CommentConsumer(AsyncWebsocketConsumer):
+    """Class for web socket representations for comment"""
+    
     async def connect(self):
         my_id = int(self.scope['user'].id)
         self.room_group_name = str(self.scope['url_route']['kwargs']['id'])
@@ -26,19 +30,19 @@ class CommentConsumer(AsyncWebsocketConsumer):
         # перевірка на пустоту вводу
         if comment.strip() != "":
             username = data['username']
-            myTime = datetime.now()
-           
+            my_time = datetime.now()
+
             usernames = await self.get_user(username)
             id = await self.get_post(int(self.room_group_name))
-   
+
             # зберігання даних в базі
-            
-            await self.save_comment(usernames, id, comment, myTime)
+
+            await self.save_comment(usernames, id, comment, my_time)
             user = self.get_username(usernames)
             avatar = await self.get_avatar(usernames)
-            
+
             id_comment = await self.get_comment_id(int(self.room_group_name))
-            
+
             # відправка даних в comment_message
             await self.channel_layer.group_send(
                 self.room_group_name,
@@ -46,7 +50,7 @@ class CommentConsumer(AsyncWebsocketConsumer):
                     'type': 'comment_message',
                     'comment': comment,
                     'username': user,
-                    'timestamp': myTime,
+                    'timestamp': my_time,
                     'avatar': avatar.avatar.url,
                     'url': usernames.getUsernameProfile(),
                     'is_superuser': usernames.is_superuser,
@@ -80,18 +84,19 @@ class CommentConsumer(AsyncWebsocketConsumer):
 
     # зберігає коментар в базі
     @database_sync_to_async
-    def save_comment(self, id_user, id_post, comment, myTime):
-        comment = PostComment(userId=id_user, commentText=comment, createdAt=myTime)
+    def save_comment(self, id_user, id_post, comment, my_time):
+        comment = PostComment(
+            userId=id_user, commentText=comment, createdAt=my_time)
         comment.save()
         id_post.comments.add(comment)
         id_post.save()
 
-    # отримує об'єкти користувачів з бази 
+    # отримує об'єкти користувачів з бази
     @database_sync_to_async
     def get_user(self, username):
         return User.objects.get(id=username)
 
-    # отримує об'єкти постів з бази 
+    # отримує об'єкти постів з бази
     @database_sync_to_async
     def get_post(self, id):
         return UserPost.objects.get(id=id)
@@ -99,11 +104,11 @@ class CommentConsumer(AsyncWebsocketConsumer):
     # отримує поле username з об'єкта
     def get_username(self, obj):
         return getattr(obj, 'username')
-    
+
     @database_sync_to_async
     def get_avatar(self, obj):
         return getattr(obj, 'avatar')
-    
+
     @database_sync_to_async
     def get_comment_id(self, id):
         return UserPost.objects.get(id=id).comments.last().pk
