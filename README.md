@@ -32,4 +32,4 @@ Step 5 "Start project":
 python manage.py runserver
 ```  
 ___
-
+![img](social_network/static/../../social_network/static/img/README/first.jpg)
