@@ -32,4 +32,13 @@ Step 5 "Start project":
 python manage.py runserver
 ```  
 ___
-![img](social_network/static/../../social_network/static/img/README/first.jpg)
+![img1](static/img/README/first.jpg)
+![img2](static/img/README/second.jpg)
+![img3](static/img/README/third.jpg)
+![img4](static/img/README/fourth.jpg)
+![img5](static/img/README/fifth.jpg)
+![img6](static/img/README/sixth.jpg)
+![img7](static/img/README/seventh.jpg)
+![img8](static/img/README/eightth.jpg)
+
+This social network implements a system of likes, subscriptions, adding comments, correspondence between two users both by voice and text messages, creating posts and a personal account that can be edited (avatar, background, nickname)

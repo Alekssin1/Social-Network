@@ -56,6 +56,7 @@ TEMPLATES = [
 
 ASGI_APPLICATION = 'social_network.asgi.application'
 
+
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels.layers.InMemoryChannelLayer"
